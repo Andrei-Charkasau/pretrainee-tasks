@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "H:\\VS Code repos\\Task_1_Console_Calculator\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|h:\\vs code repos\\task_1_console_calculator\\task_1_console_calculator\\validator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\validator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|h:\\vs code repos\\task_1_console_calculator\\task_1_console_calculator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|H:\\VS Code repos\\Task_1_Console_Calculator\\task_1_console_calculator\\mathoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\mathoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|h:\\vs code repos\\task_1_console_calculator\\task_1_console_calculator\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|h:\\vs code repos\\task_1_console_calculator\\task_1_console_calculator\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|H:\\VS Code repos\\Task_1_Console_Calculator\\task_1_console_calculator\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -22,23 +34,63 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "Validator.cs",
+              "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Validator.cs",
+              "RelativeDocumentMoniker": "Task_1_Console_Calculator\\Validator.cs",
+              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Validator.cs",
+              "RelativeToolTip": "Task_1_Console_Calculator\\Validator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-02T18:44:12.836Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Calculator.cs",
+              "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Calculator.cs",
+              "RelativeDocumentMoniker": "Task_1_Console_Calculator\\Calculator.cs",
+              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Calculator.cs",
+              "RelativeToolTip": "Task_1_Console_Calculator\\Calculator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-02T18:38:10.28Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "InputManager.cs",
+              "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\InputManager.cs",
+              "RelativeDocumentMoniker": "Task_1_Console_Calculator\\InputManager.cs",
+              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\InputManager.cs",
+              "RelativeToolTip": "Task_1_Console_Calculator\\InputManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-02T18:33:11.162Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "MathOperations.cs",
               "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\MathOperations.cs",
               "RelativeDocumentMoniker": "Task_1_Console_Calculator\\MathOperations.cs",
               "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\MathOperations.cs",
               "RelativeToolTip": "Task_1_Console_Calculator\\MathOperations.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-30T08:07:44.955Z"
+              "WhenOpened": "2025-09-30T08:07:44.955Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "AssemblyInfo.cs",
               "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Properties\\AssemblyInfo.cs",
               "RelativeDocumentMoniker": "Task_1_Console_Calculator\\Properties\\AssemblyInfo.cs",
@@ -50,13 +102,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Program.cs",
               "RelativeDocumentMoniker": "Task_1_Console_Calculator\\Program.cs",
               "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Program.cs",
               "RelativeToolTip": "Task_1_Console_Calculator\\Program.cs",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAAAGsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-30T08:07:45.246Z",
               "EditorCaption": ""

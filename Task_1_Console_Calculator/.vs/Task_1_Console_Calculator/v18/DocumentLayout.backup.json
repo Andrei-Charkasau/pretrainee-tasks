@@ -34,7 +34,8 @@
               "RelativeToolTip": "Task_1_Console_Calculator\\MathOperations.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-30T08:07:44.955Z"
+              "WhenOpened": "2025-09-30T08:07:44.955Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -54,9 +55,9 @@
               "Title": "Program.cs",
               "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Program.cs",
               "RelativeDocumentMoniker": "Task_1_Console_Calculator\\Program.cs",
-              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Program.cs",
-              "RelativeToolTip": "Task_1_Console_Calculator\\Program.cs",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAAAFUAAAAhAAAAAAAAAA==",
+              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Program.cs*",
+              "RelativeToolTip": "Task_1_Console_Calculator\\Program.cs*",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACsAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-30T08:07:45.246Z",
               "EditorCaption": ""
