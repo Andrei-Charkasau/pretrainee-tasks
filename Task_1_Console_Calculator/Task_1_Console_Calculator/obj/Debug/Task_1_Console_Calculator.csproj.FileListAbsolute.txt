@@ -1,0 +1,15 @@
+E:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\bin\Debug\Task_1_Console_Calculator.exe.config
+E:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\bin\Debug\Task_1_Console_Calculator.exe
+E:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\bin\Debug\Task_1_Console_Calculator.pdb
+E:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.csproj.AssemblyReference.cache
+E:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.csproj.SuggestedBindingRedirects.cache
+E:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.csproj.CoreCompileInputs.cache
+E:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.exe
+E:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.pdb
+H:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\bin\Debug\Task_1_Console_Calculator.exe.config
+H:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\bin\Debug\Task_1_Console_Calculator.exe
+H:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\bin\Debug\Task_1_Console_Calculator.pdb
+H:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.csproj.AssemblyReference.cache
+H:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.csproj.CoreCompileInputs.cache
+H:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.exe
+H:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.pdb

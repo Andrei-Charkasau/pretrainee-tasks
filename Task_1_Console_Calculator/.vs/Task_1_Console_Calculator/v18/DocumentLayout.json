@@ -1,0 +1,69 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "H:\\VS Code repos\\Task_1_Console_Calculator\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|h:\\vs code repos\\task_1_console_calculator\\task_1_console_calculator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|H:\\VS Code repos\\Task_1_Console_Calculator\\task_1_console_calculator\\mathoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\mathoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|H:\\VS Code repos\\Task_1_Console_Calculator\\task_1_console_calculator\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MathOperations.cs",
+              "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\MathOperations.cs",
+              "RelativeDocumentMoniker": "Task_1_Console_Calculator\\MathOperations.cs",
+              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\MathOperations.cs",
+              "RelativeToolTip": "Task_1_Console_Calculator\\MathOperations.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T08:07:44.955Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Properties\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "Task_1_Console_Calculator\\Properties\\AssemblyInfo.cs",
+              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Properties\\AssemblyInfo.cs",
+              "RelativeToolTip": "Task_1_Console_Calculator\\Properties\\AssemblyInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T08:07:45.159Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Program.cs",
+              "RelativeDocumentMoniker": "Task_1_Console_Calculator\\Program.cs",
+              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Program.cs",
+              "RelativeToolTip": "Task_1_Console_Calculator\\Program.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAAGsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T08:07:45.246Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
