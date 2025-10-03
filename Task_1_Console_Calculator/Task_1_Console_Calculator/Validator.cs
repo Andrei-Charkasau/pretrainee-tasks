@@ -1,21 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Task_1_Console_Calculator
 {
     public class Validator
     {
-        //Number EXCEPTIONS
-        public static decimal GetNumber(string number)
-        {
-            bool isSuccess = decimal.TryParse(number, out decimal result);
-            if (!isSuccess)
-            {
-                throw new Exception("Input must be numeric.");
-            }
-            return result;
-        }
-
-        //Number EXCEPTIONS'
+        /// <summary>
+        /// Validates if operation is not a dividing by zero.
+        /// </summary>
+        /// <param name="number">Input number.</param>
+        /// <param name="operation">Chosen operation.</param>
+        /// <exception cref="DivideByZeroException">Exception thrown whether operation is dividing by zero.</exception>
         public static void CheckForZeros(decimal number, MathOperations operation)
         {
             if (number == 0 && operation == MathOperations.Divide)
@@ -24,19 +23,11 @@ namespace Task_1_Console_Calculator
             }
         }
 
-        //Choice EXCEPTIONS
-        public static MathOperations GetChoice(string stringOperation)
-        {
-            bool isSuccess = int.TryParse(stringOperation, out int operation);
-            if (!isSuccess)
-            {
-                throw new Exception("Input must be numeric.");
-            }
-            CheckOperations(operation);
-            return (MathOperations)operation;
-        }
-
-        //Choice EXCEPTIONS'
+        /// <summary>
+        /// Checks if operation choosed correctly.
+        /// </summary>
+        /// <param name="operation">Chosen operation</param>
+        /// <exception cref="Exception">Exception thrown whether operation choice is invalid.</exception>
         public static void CheckOperations(int operation)
         {
             if (!Enum.IsDefined(typeof(MathOperations), operation))
@@ -45,15 +36,48 @@ namespace Task_1_Console_Calculator
             }
         }
 
+        /// <summary>
+        /// Validates if the string represents a valid Y/N continuation response.
+        /// </summary>
+        /// <param name="answer">Input string to validate</param>
+        /// <returns>True if input is valid single character 'Y' or 'N', false otherwise.</returns>
         public static bool IsContinue(string answer)
         {
+            const char PositiveAnswer = 'Y';
+            const char NegativeAnswer = 'N';
+
             bool isSuccess = Char.TryParse(answer, out char result);
             if (!isSuccess)
             {
                 Console.WriteLine("Invalid input format. (Must be Y or N)");
                 return false;
             }
-            return true;
+            return result == PositiveAnswer || result == NegativeAnswer;
+        }
+
+        /// <summary>
+        /// Validates if user's answer is a positive one.
+        /// </summary>
+        /// <returns>True if answer is positive, false otherwise.</returns>
+        public static bool isPositiveAnswer()
+        {
+            string answer;
+            const char PositiveAnswer = 'Y';
+            do
+            {
+                Console.WriteLine("\nDo you want to continue calculations? [Y/N]");
+                answer = Console.ReadLine();
+            }
+            while (!Validator.IsContinue(answer));
+
+            if (answer.Contains(PositiveAnswer))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

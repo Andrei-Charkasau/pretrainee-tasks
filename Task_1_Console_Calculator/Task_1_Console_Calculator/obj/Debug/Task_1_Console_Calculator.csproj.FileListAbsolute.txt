@@ -13,3 +13,10 @@ H:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\T
 H:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.csproj.CoreCompileInputs.cache
 H:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.exe
 H:\VS Code repos\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.pdb
+H:\GitHub Repositories\pretrainee-tasks\Task_1_Console_Calculator\Task_1_Console_Calculator\bin\Debug\Task_1_Console_Calculator.exe.config
+H:\GitHub Repositories\pretrainee-tasks\Task_1_Console_Calculator\Task_1_Console_Calculator\bin\Debug\Task_1_Console_Calculator.exe
+H:\GitHub Repositories\pretrainee-tasks\Task_1_Console_Calculator\Task_1_Console_Calculator\bin\Debug\Task_1_Console_Calculator.pdb
+H:\GitHub Repositories\pretrainee-tasks\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.csproj.AssemblyReference.cache
+H:\GitHub Repositories\pretrainee-tasks\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.csproj.CoreCompileInputs.cache
+H:\GitHub Repositories\pretrainee-tasks\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.exe
+H:\GitHub Repositories\pretrainee-tasks\Task_1_Console_Calculator\Task_1_Console_Calculator\obj\Debug\Task_1_Console_Calculator.pdb

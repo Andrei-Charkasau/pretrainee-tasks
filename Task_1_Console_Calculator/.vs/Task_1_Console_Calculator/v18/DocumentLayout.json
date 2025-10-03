@@ -1,29 +1,33 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "H:\\VS Code repos\\Task_1_Console_Calculator\\",
+  "WorkspaceRootPath": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|h:\\vs code repos\\task_1_console_calculator\\task_1_console_calculator\\validator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|h:\\github repositories\\pretrainee-tasks\\task_1_console_calculator\\task_1_console_calculator\\validator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\validator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|h:\\vs code repos\\task_1_console_calculator\\task_1_console_calculator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\task_1_console_calculator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|H:\\VS Code repos\\Task_1_Console_Calculator\\task_1_console_calculator\\mathoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\mathoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|h:\\github repositories\\pretrainee-tasks\\task_1_console_calculator\\task_1_console_calculator\\inputconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\inputconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|h:\\vs code repos\\task_1_console_calculator\\task_1_console_calculator\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|h:\\vs code repos\\task_1_console_calculator\\task_1_console_calculator\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\task_1_console_calculator\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|H:\\VS Code repos\\Task_1_Console_Calculator\\task_1_console_calculator\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\task_1_console_calculator\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\task_1_console_calculator\\mathoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\mathoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\task_1_console_calculator\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02EC0872-4612-4D94-96CF-6AA54FAD27DC}|Task_1_Console_Calculator\\Task_1_Console_Calculator.csproj|solutionrelative:task_1_console_calculator\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -40,22 +44,35 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Validator.cs",
-              "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Validator.cs",
+              "DocumentMoniker": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Validator.cs",
               "RelativeDocumentMoniker": "Task_1_Console_Calculator\\Validator.cs",
-              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Validator.cs",
-              "RelativeToolTip": "Task_1_Console_Calculator\\Validator.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAcAAAAAAAAAA==",
+              "ToolTip": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Validator.cs*",
+              "RelativeToolTip": "Task_1_Console_Calculator\\Validator.cs*",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAgwEgAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-03T09:16:53.139Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "InputConverter.cs",
+              "DocumentMoniker": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\InputConverter.cs",
+              "RelativeDocumentMoniker": "Task_1_Console_Calculator\\InputConverter.cs",
+              "ToolTip": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\InputConverter.cs",
+              "RelativeToolTip": "Task_1_Console_Calculator\\InputConverter.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-02T18:44:12.836Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Calculator.cs",
-              "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Calculator.cs",
+              "DocumentMoniker": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Calculator.cs",
               "RelativeDocumentMoniker": "Task_1_Console_Calculator\\Calculator.cs",
-              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Calculator.cs",
+              "ToolTip": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Calculator.cs",
               "RelativeToolTip": "Task_1_Console_Calculator\\Calculator.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -64,24 +81,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "InputManager.cs",
-              "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\InputManager.cs",
+              "DocumentMoniker": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\InputManager.cs",
               "RelativeDocumentMoniker": "Task_1_Console_Calculator\\InputManager.cs",
-              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\InputManager.cs",
+              "ToolTip": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\InputManager.cs",
               "RelativeToolTip": "Task_1_Console_Calculator\\InputManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAqwBEAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-02T18:33:11.162Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "MathOperations.cs",
-              "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\MathOperations.cs",
+              "DocumentMoniker": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\MathOperations.cs",
               "RelativeDocumentMoniker": "Task_1_Console_Calculator\\MathOperations.cs",
-              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\MathOperations.cs",
+              "ToolTip": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\MathOperations.cs",
               "RelativeToolTip": "Task_1_Console_Calculator\\MathOperations.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -90,11 +107,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "AssemblyInfo.cs",
-              "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Properties\\AssemblyInfo.cs",
+              "DocumentMoniker": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Properties\\AssemblyInfo.cs",
               "RelativeDocumentMoniker": "Task_1_Console_Calculator\\Properties\\AssemblyInfo.cs",
-              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Properties\\AssemblyInfo.cs",
+              "ToolTip": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Properties\\AssemblyInfo.cs",
               "RelativeToolTip": "Task_1_Console_Calculator\\Properties\\AssemblyInfo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -104,11 +121,11 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Program.cs",
-              "DocumentMoniker": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Program.cs",
+              "DocumentMoniker": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Program.cs",
               "RelativeDocumentMoniker": "Task_1_Console_Calculator\\Program.cs",
-              "ToolTip": "H:\\VS Code repos\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Program.cs",
+              "ToolTip": "H:\\GitHub Repositories\\pretrainee-tasks\\Task_1_Console_Calculator\\Task_1_Console_Calculator\\Program.cs",
               "RelativeToolTip": "Task_1_Console_Calculator\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB0AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-30T08:07:45.246Z",
               "EditorCaption": ""

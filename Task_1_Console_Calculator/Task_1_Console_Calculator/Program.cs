@@ -5,14 +5,12 @@ namespace Task_1_Console_Calculator
 {
     internal class Program
     {
-        private const char PositiveAnswer= 'Y';
         static void Main(string[] args)
         {
             decimal firstNumber;
             decimal secondNumber;
             MathOperations choice;
             decimal result;
-            string answer;
 
             do
             {
@@ -30,15 +28,7 @@ namespace Task_1_Console_Calculator
                 {
                     Console.WriteLine(ex.Message);
                 }
-
-                //Asking user does he wants to repeat.
-                do
-                {
-                    Console.WriteLine("\nDo you want to continue calculations? [Y/N]");
-                    answer = Console.ReadLine();
-                }
-                while (!InputManager.IsContinue(answer));
-            } while (answer.Contains(PositiveAnswer));
+            } while (Validator.isPositiveAnswer());
         }
     }
 }
