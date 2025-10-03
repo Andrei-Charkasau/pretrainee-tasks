@@ -15,13 +15,12 @@ namespace Task_2_Async_Processor
 
             Stopwatch stopwatch = new Stopwatch();
 
-            StartAsyncProcessing(stopwatch, file1, file2, file3);
+            PerformAsyncProcessing(stopwatch, file1, file2, file3);
 
             stopwatch.Reset();
 
-            StartSyncProcessing(stopwatch, file1, file2, file3);
+            PerformSyncProcessing(stopwatch, file1, file2, file3);
 
-            
             Console.ReadKey();
         }
 
@@ -32,7 +31,7 @@ namespace Task_2_Async_Processor
         /// <param name="file1">Файл для обработки №1</param>
         /// <param name="file2">Файл для обработки №2</param>
         /// <param name="file3">Файл для обработки №3</param>
-        static void StartAsyncProcessing(Stopwatch stopwatch, string file1, string file2, string file3)
+        static void PerformAsyncProcessing(Stopwatch stopwatch, string file1, string file2, string file3)
         {
             stopwatch.Start();
             var task1 = Task.Run(() => ProcessDataAsync(file1));
@@ -50,7 +49,7 @@ namespace Task_2_Async_Processor
         /// <param name="file1">Файл для обработки №1</param>
         /// <param name="file2">Файл для обработки №2</param>
         /// <param name="file3">Файл для обработки №3</param>
-        static void StartSyncProcessing(Stopwatch stopwatch, string file1, string file2, string file3)
+        static void PerformSyncProcessing(Stopwatch stopwatch, string file1, string file2, string file3)
         {
             stopwatch.Start();
             ProcessData(file1);
