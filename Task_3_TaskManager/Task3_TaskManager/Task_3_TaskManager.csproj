@@ -82,5 +82,8 @@
       <Version>8.0.7</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SQL Queries\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
