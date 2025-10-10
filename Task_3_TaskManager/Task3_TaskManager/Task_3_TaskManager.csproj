@@ -52,12 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller.cs" />
-    <Compile Include="MenuOperations.cs" />
+    <Compile Include="Models\MenuOperations.cs" />
     <Compile Include="Contexts\DapperContext.cs" />
     <Compile Include="Contexts\IContext.cs" />
     <Compile Include="Repositories\LaborRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Labor.cs" />
+    <Compile Include="Models\Labor.cs" />
     <Compile Include="Services\LaborService.cs" />
     <Compile Include="Contexts\PostgresContext.cs" />
     <Compile Include="Program.cs" />
