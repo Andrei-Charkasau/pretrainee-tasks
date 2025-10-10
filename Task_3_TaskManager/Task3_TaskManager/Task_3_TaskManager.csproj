@@ -51,19 +51,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller.cs" />
     <Compile Include="MenuOperations.cs" />
     <Compile Include="Contexts\DapperContext.cs" />
     <Compile Include="Contexts\IContext.cs" />
-    <Compile Include="LaborRepository.cs" />
-    <Compile Include="IRepository.cs" />
+    <Compile Include="Repositories\LaborRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Labor.cs" />
-    <Compile Include="LaborService.cs" />
+    <Compile Include="Services\LaborService.cs" />
     <Compile Include="Contexts\PostgresContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Dapper">
@@ -73,6 +77,9 @@
       <Version>6.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Data.Sqlite">
+      <Version>9.0.9</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json">
       <Version>9.0.9</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Identity.Client">

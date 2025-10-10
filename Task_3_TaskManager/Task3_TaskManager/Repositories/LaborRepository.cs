@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Task3_TaskManager
@@ -11,10 +9,9 @@ namespace Task3_TaskManager
     public class LaborRepository : IRepository<Labor>
     {
         const string TableName = "Tasks";
-        const int DbDelay = 1000;
         static readonly string CreateQuery = $"INSERT INTO {TableName} (Title, Description, IsCompleted, CreatedAt) VALUES (@title, @description, @isCompleted, @createdAt)";
         static readonly string DeleteQuery = $"DELETE FROM {TableName} WHERE Id = @id";
-        static readonly string UpdateStatusQuery = $"UPDATE {TableName} SET IsCompleted = @isCompleted WHERE Id = @id";
+        static readonly string UpdateStatusQuery = $"UPDATE {TableName} SET Title = @title, Description = @description, IsCompleted = @isCompleted WHERE Id = @id";
         static readonly string GetQuery = $"SELECT Id, Title, Description, IsCompleted, CreatedAt FROM {TableName} WHERE Id = @id";
         static readonly string GetAllQuery = $"SELECT Id, Title, Description, IsCompleted, CreatedAt FROM {TableName}";
 
@@ -36,7 +33,6 @@ namespace Task3_TaskManager
             using (var connection = Context.CreateConnection())
             {
                 await connection.ExecuteAsync(query, parameters);
-                await Task.Delay(DbDelay);
             }
         }
 
@@ -48,36 +44,34 @@ namespace Task3_TaskManager
             using (var connection = Context.CreateConnection())
             {
                 await connection.ExecuteAsync(query, parameters);
-                await Task.Delay(DbDelay);
             }
         }
 
-        public async Task UpdateStatusAsync(int id, bool isCompleted)
+        public async Task UpdateAsync(Labor labor)
         {
             var query = UpdateStatusQuery;
             var parameters = new DynamicParameters();
-            parameters.Add("@id", id);
-            parameters.Add("@isCompleted", isCompleted);
+            parameters.Add("@id", labor.Id);
+            parameters.Add("@title", labor.Title);
+            parameters.Add("@description", labor.Description);
+            parameters.Add("@isCompleted", labor.IsCompleted);
             using (var connection = Context.CreateConnection())
             {
                 await connection.ExecuteAsync(query, parameters);
-                await Task.Delay(DbDelay);
             }
         }
 
         public async Task<Labor> GetAsync(int id)
         {
-            Labor task = null;
+            Labor labor = null;
             var query = GetQuery;
             var parameters = new DynamicParameters();
             parameters.Add("@id", id);
             using (var connection = Context.CreateConnection())
             {
-                var result = await connection.QueryAsync<Labor>(query, parameters);
-                await Task.Delay(DbDelay);
-                task = result.FirstOrDefault();
+                labor = await connection.QueryFirstAsync<Labor>(query, parameters);
             }
-            return task;
+            return labor;
         }
 
         public async Task<List<Labor>> GetAllAsync()
@@ -87,7 +81,6 @@ namespace Task3_TaskManager
             using(var connection = Context.CreateConnection())
             {
                 var result = await connection.QueryAsync<Labor>(query);
-                await Task.Delay(DbDelay);
                 labors = result.ToList();
             }
             return labors;

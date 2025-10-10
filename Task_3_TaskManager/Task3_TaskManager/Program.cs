@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Threading.Tasks;
 
 namespace Task3_TaskManager
@@ -9,11 +10,14 @@ namespace Task3_TaskManager
         {
             MenuOperations choice = 0;
 
+            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            string sqliteConn = configuration["SqliteConnection"];
+            string postgresConn = configuration["PostgresConnection"];
 
-            //IContext context = new PostgresContext(@"Host=localhost;Port=5432;Username=postgres;Database=postgredatabase");
-            IContext context = new DapperContext(@"Data Source = C:\Users\Andrey\AppData\Roaming\DBeaverData\workspace6\.metadata\sample-database-sqlite-1\Chinook.db");
+            IContext context = new DapperContext(sqliteConn);
             IRepository<Labor> laborRepository = new LaborRepository(context);
             LaborService laborService = new LaborService(laborRepository);
+            LaborController laborController = new LaborController(laborService);
             do
             {
                 try
@@ -24,7 +28,7 @@ namespace Task3_TaskManager
                     if (choice != MenuOperations.Exit)
                     {
                         Console.Clear(); 
-                        await DoOptionAsync(laborService, choice);
+                        await DoOptionAsync(laborController, choice);
                         Console.ReadKey();
                     }
                 }
@@ -43,10 +47,11 @@ namespace Task3_TaskManager
         {
             Console.WriteLine("|Task_Manager | Version 0.0.1|" +
                 "\n   1. Show All Labors " +
-                "\n   2. Add Labor " +
-                "\n   3. Delete Labor " +
-                "\n   4. Change Labor Status " +
-                "\n   5. Exit");
+                "\n   2. Show Specific Labor Info" +
+                "\n   3. Add Labor " +
+                "\n   4. Delete Labor " +
+                "\n   5. Change Labor Status " +
+                "\n   6. Exit");
         }
 
         private static MenuOperations GetChoice()
@@ -68,21 +73,24 @@ namespace Task3_TaskManager
                 throw new Exception("Invalid operation choose option.");
             }
         }
-        public async static Task DoOptionAsync(LaborService laborService, MenuOperations choice)
+        public async static Task DoOptionAsync(LaborController laborController, MenuOperations choice)
         {
             switch (choice)
             {
                 case MenuOperations.ShowAllLabor:
-                    await laborService.ShowAllLaborsInfoAsync();
+                    await laborController.ShowAllLaborsInfoAsync();
+                    break;
+                case MenuOperations.ShowLaborInfo:
+                    await laborController.ShowLaborInfoAsync();
                     break;
                 case MenuOperations.AddLabor:
-                    await laborService.CreateLaborAsync();
+                    await laborController.CreateLaborAsync();
                     break;
                 case MenuOperations.DeleteLabor:
-                    laborService.DeleteLaborInfo();
+                    await laborController.DeleteLaborInfo();
                     break;
                 case MenuOperations.ChangeLaborStatus:
-                    laborService.ChangeLaborInfo();
+                    await laborController.ChangeLaborInfo();
                     break;
                 default: throw new Exception("Exiting...");  
             }
