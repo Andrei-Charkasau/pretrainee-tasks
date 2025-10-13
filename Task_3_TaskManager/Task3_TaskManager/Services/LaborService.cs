@@ -6,9 +6,9 @@ namespace Task3_TaskManager
 {
     public class LaborService
     {
-        private readonly IRepository<Labor> _laborRepository;
+        private readonly ILaborRepository<Labor> _laborRepository;
 
-        public LaborService(IRepository<Labor> repository)
+        public LaborService(ILaborRepository<Labor> repository)
         {
             _laborRepository = repository;
         }
