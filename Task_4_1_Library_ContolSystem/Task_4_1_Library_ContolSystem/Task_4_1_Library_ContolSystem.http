@@ -1,0 +1,6 @@
+@Task_4_1_Library_ContolSystem_HostAddress = http://localhost:5069
+
+GET {{Task_4_1_Library_ContolSystem_HostAddress}}/api
+Accept: application/json
+
+###
