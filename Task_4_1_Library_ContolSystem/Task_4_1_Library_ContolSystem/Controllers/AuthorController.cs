@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Task_4_1_Library_ControlSystem.Services;
 using Task_4_1_Library_ControlSystem.Models;
 using Task_4_1_Library_ControlSystem.DtoModels;
 
@@ -20,7 +19,7 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         {
             try
             {
-                return Ok(_authorService.RetriveAll());
+                return Ok(_authorService.GetAllAuthors());
             }
             catch (Exception ex)
             {
@@ -33,7 +32,7 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         {
             try
             {
-                return Ok(_authorService.Retrive(authorId));
+                return Ok(_authorService.GetAuthorById(authorId));
             }
             catch (Exception ex)
             {
@@ -44,10 +43,9 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         [HttpPost]
         public ActionResult<string> CreateAuthor(AuthorDto authorDto)
         {
-            //Console.WriteLine($"Received author: Id={author.Id}, Title={author.Name}");
             try
             {
-                _authorService.Add(authorDto);
+                _authorService.CreateAuthor(authorDto);
                 return StatusCode(201, "Author added.");
             }
             catch (Exception ex)
@@ -61,7 +59,7 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         {
             try
             {
-                _authorService.Modify(id, authorDto);
+                _authorService.UpdateAuthor(id, authorDto);
                 return Ok("Author modified.");
             }
             catch (Exception ex)
@@ -75,7 +73,7 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         {
             try
             {
-                _authorService.Erase(authorId);
+                _authorService.DeleteAuthor(authorId);
                 return Ok("Author erased.");
             }
             catch (Exception ex)

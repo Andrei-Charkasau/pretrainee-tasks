@@ -1,4 +1,5 @@
 ﻿using Task_4_1_Library_ControlSystem.Models;
+using Task_4_1_Library_ControlSystem.Services;
 
 namespace Task_4_1_Library_ControlSystem.Repositories
 {
@@ -14,7 +15,7 @@ namespace Task_4_1_Library_ControlSystem.Repositories
 
         public void Update(Author patchAuthor)
         {
-            Author authorToUpdate= _authors.FirstOrDefault(author =>  author.Id == patchAuthor.Id); //<--- 6_6
+            Author authorToUpdate= _authors.FirstOrDefault(author =>  author.Id == patchAuthor.Id);
             if (authorToUpdate != null)
             {
                 authorToUpdate.DateOfBirth = patchAuthor.DateOfBirth;

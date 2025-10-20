@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Task_4_1_Library_ControlSystem.Services;
 using Task_4_1_Library_ControlSystem.Models;
 using Task_4_1_Library_ControlSystem.DtoModels;
 
@@ -20,7 +19,7 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         {
             try
             {
-                return Ok(_bookService.RetriveAll());
+                return Ok(_bookService.GetAllBooks());
             }
             catch (Exception ex)
             {
@@ -33,7 +32,7 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         {
             try
             {
-                return Ok(_bookService.Retrive(bookId));
+                return Ok(_bookService.GetBookById(bookId));
             }
             catch(Exception ex)
             {
@@ -46,7 +45,7 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         {
             try
             {
-                _bookService.Add(bookDto);
+                _bookService.CreateBook(bookDto);
                 return StatusCode(201, "Book added.");
             }
             catch (Exception ex)
@@ -60,7 +59,7 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         {
             try
             {
-                _bookService.Modify(id, bookDto);
+                _bookService.UpdateBook(id, bookDto);
                 return Ok("Book modified.");
             }
             catch (Exception ex)
@@ -74,7 +73,7 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         {
             try
             {
-                _bookService.Erase(bookId);
+                _bookService.DeleteBook(bookId);
                 return Ok("Book erased.");
             }
             catch (Exception ex)
