@@ -9,16 +9,17 @@ namespace Task_4_1_Library_ControlSystem.Services
     {
 
         private readonly IRepository<Author> _authorRepository;
-        Guard guard = new Guard();
+        private readonly IGuard _guard;
 
-        public AuthorService(IRepository<Author> authorRepository)
+        public AuthorService(IRepository<Author> authorRepository, IGuard guard)
         {
             _authorRepository = authorRepository;
+            _guard = guard;
         }
 
         public void CreateAuthor(AuthorDto authorDto)
         {
-            guard.AgainstNullOrEmpty(authorDto.Name, "!!! ERROR: Author name must be filled. !!!");
+            _guard.AgainstNullOrEmpty(authorDto.Name, "!!! ERROR: Author name must be filled. !!!");
 
             Author author = new Author();
             author.Name = authorDto.Name;
@@ -29,16 +30,16 @@ namespace Task_4_1_Library_ControlSystem.Services
 
         public void DeleteAuthor(int authorId)
         {
-            var existingAuthor = _authorRepository.Fetch(authorId);
-            guard.AgainstNull(existingAuthor, "!!! ERROR: Author not found. !!!");
+            var existingAuthor = _authorRepository.Get(authorId);
+            _guard.AgainstNull(existingAuthor, "!!! ERROR: Author not found. !!!");
             _authorRepository.Delete(authorId);
         }
 
         public void UpdateAuthor(int authorId, AuthorDto authorDto)
         {
-            guard.AgainstNullOrEmpty(authorDto.Name, "!!! ERROR: Author name must be filled. !!!");
-            var existingAuthor = _authorRepository.Fetch(authorId);
-            guard.AgainstNull(existingAuthor, "!!! ERROR: Author not found. !!!");
+            _guard.AgainstNullOrEmpty(authorDto.Name, "!!! ERROR: Author name must be filled. !!!");
+            var existingAuthor = _authorRepository.Get(authorId);
+            _guard.AgainstNull(existingAuthor, "!!! ERROR: Author not found. !!!");
 
             Author patchAuthor = new Author();
             patchAuthor.Name = authorDto.Name;
@@ -50,12 +51,12 @@ namespace Task_4_1_Library_ControlSystem.Services
 
         public Author GetAuthorById(int id)
         {
-            return _authorRepository.Fetch(id);
+            return _authorRepository.Get(id);
         }
 
         public List<Author> GetAllAuthors()
         {
-            return _authorRepository.FetchAll();
+            return _authorRepository.GetAll();
         }
     }
 }

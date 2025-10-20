@@ -2,6 +2,7 @@ using Task_4_1_Library_ControlSystem.Repositories;
 using Task_4_1_Library_ControlSystem.Services;
 using Task_4_1_Library_ControlSystem.Models;
 using Task_4_1_Library_ControlSystem.Controllers;
+using Task_4_1_Library_ControlSystem.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Book Init.
+builder.Services.AddScoped<IGuard, Guard>();
+
 builder.Services.AddTransient<IBookService, BookService>();
 builder.Services.AddTransient<IRepository<Book>, BookRepository>();
 

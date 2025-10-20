@@ -7,6 +7,7 @@ namespace Task_4_1_Library_ControlSystem.Repositories
     {
         private static List<Author> _authors = new List<Author>();
         private static int lastInt;
+
         public void Insert(Author author)
         {
             author.Id = lastInt++;
@@ -32,12 +33,12 @@ namespace Task_4_1_Library_ControlSystem.Repositories
             }
         }
 
-        public List<Author> FetchAll()
+        public List<Author> GetAll()
         {
             return _authors;
         }
 
-        public Author Fetch(int authorId)
+        public Author Get(int authorId)
         {
             return _authors.FirstOrDefault(author => author.Id == authorId);
         }

@@ -1,7 +1,6 @@
 ﻿using Task_4_1_Library_ControlSystem.Controllers;
 using Task_4_1_Library_ControlSystem.DtoModels;
 using Task_4_1_Library_ControlSystem.Models;
-using Task_4_1_Library_ControlSystem.Validators;
 
 namespace Task_4_1_Library_ControlSystem.Services
 {
@@ -9,38 +8,40 @@ namespace Task_4_1_Library_ControlSystem.Services
     {
         private readonly IRepository<Book> _bookRepository;
         private readonly IRepository<Author> _authorRepository;
-        Guard guard = new Guard();
-        public BookService (IRepository<Book> bookRepository, IRepository<Author> authorRepository)
+        private readonly IGuard _guard;
+
+        public BookService (IRepository<Book> bookRepository, IRepository<Author> authorRepository, IGuard guard)
         {
             _bookRepository = bookRepository;
             _authorRepository = authorRepository;
+            _guard = guard;
         }
 
         public void CreateBook(BookDto bookDto)
         {
-            guard.AgainstNull(_authorRepository.Fetch(bookDto.AuthorId), "!!! ERROR: There is no author with such ID. !!!");
-            guard.AgainstNullOrEmpty(bookDto.Title, "!!! ERROR: Book title must be filled. !!!");
+            _guard.AgainstNullOrEmpty(bookDto.Title, "!!! ERROR: Book title must be filled. !!!");
+            _guard.AgainstNull(_authorRepository.Get(bookDto.AuthorId), "!!! ERROR: There is no author with such ID. !!!");
 
-                Book book = new Book();
-                book.Title = bookDto.Title;
-                book.PublishedYear = bookDto.PublishedYear;
-                book.AuthorId = bookDto.AuthorId;
+            Book book = new Book();
+            book.Title = bookDto.Title;
+            book.PublishedYear = bookDto.PublishedYear;
+            book.AuthorId = bookDto.AuthorId;
 
-                _bookRepository.Insert(book);
+            _bookRepository.Insert(book);
         }
 
         public void DeleteBook(int bookId)
         {
-            var existingBook = _bookRepository.Fetch(bookId);
-            guard.AgainstNull(existingBook, "!!! ERROR: Book not found. !!!");
+            var existingBook = _bookRepository.Get(bookId);
+            _guard.AgainstNull(existingBook, "!!! ERROR: Book not found. !!!");
             _bookRepository.Delete(bookId);
         }
 
         public void UpdateBook(int bookIdToUpdate, BookDto bookDto)
         {
-            guard.AgainstNullOrEmpty(bookDto.Title, "!!! ERROR: Book title must be filled. !!!");
-            var existingBook = _bookRepository.Fetch(bookIdToUpdate);
-            guard.AgainstNull(existingBook, "!!! ERROR: Book not found. !!!");
+            _guard.AgainstNullOrEmpty(bookDto.Title, "!!! ERROR: Book title must be filled. !!!");
+            var existingBook = _bookRepository.Get(bookIdToUpdate);
+            _guard.AgainstNull(existingBook, "!!! ERROR: Book not found. !!!");
 
             var patchBook = new Book();
             patchBook.Id = bookIdToUpdate;
@@ -53,12 +54,12 @@ namespace Task_4_1_Library_ControlSystem.Services
 
         public List<Book> GetAllBooks()
         {
-            return _bookRepository.FetchAll();
+            return _bookRepository.GetAll();
         }
 
         public Book GetBookById(int bookId)
         {
-            return _bookRepository.Fetch(bookId);
+            return _bookRepository.Get(bookId);
         }
     }
 }

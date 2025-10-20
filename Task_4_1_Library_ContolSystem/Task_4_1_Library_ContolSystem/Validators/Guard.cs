@@ -1,6 +1,8 @@
-﻿namespace Task_4_1_Library_ControlSystem.Validators
+﻿using Task_4_1_Library_ControlSystem.Services;
+
+namespace Task_4_1_Library_ControlSystem.Validators
 {
-    public class Guard
+    public class Guard : IGuard
     {
         public void AgainstNull<T>(T objectToValidate, string errorMessage)
         {

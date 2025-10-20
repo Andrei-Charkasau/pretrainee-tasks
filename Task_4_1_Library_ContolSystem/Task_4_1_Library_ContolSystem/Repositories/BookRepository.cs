@@ -34,12 +34,12 @@ namespace Task_4_1_Library_ControlSystem.Repositories
             }
         }
 
-        public List<Book> FetchAll()
+        public List<Book> GetAll()
         {
             return _books;
         }
 
-        public Book Fetch(int bookId)
+        public Book Get(int bookId)
         {
             return _books.FirstOrDefault(book => book.Id == bookId);
         }

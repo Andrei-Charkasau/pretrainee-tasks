@@ -6,7 +6,7 @@
         void Insert(T entity);
         void Delete(int id);
         void Update(T patchEntity);
-        T Fetch(int id);
-        List<T> FetchAll();
+        T Get(int id);
+        List<T> GetAll();
     }
 }
