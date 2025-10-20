@@ -15,7 +15,7 @@ namespace Task3_TaskManager
             string postgresConn = configuration["PostgresConnection"];
 
             IContext context = new DapperContext(sqliteConn);
-            IRepository<Labor> laborRepository = new LaborRepository(context);
+            ILaborRepository<Labor> laborRepository = new LaborRepository(context);
             LaborService laborService = new LaborService(laborRepository);
             LaborController laborController = new LaborController(laborService);
             do
@@ -75,24 +75,31 @@ namespace Task3_TaskManager
         }
         public async static Task DoOptionAsync(LaborController laborController, MenuOperations choice)
         {
-            switch (choice)
+            try
             {
-                case MenuOperations.ShowAllLabor:
-                    await laborController.ShowAllLaborsInfoAsync();
-                    break;
-                case MenuOperations.ShowLaborInfo:
-                    await laborController.ShowLaborInfoAsync();
-                    break;
-                case MenuOperations.AddLabor:
-                    await laborController.CreateLaborAsync();
-                    break;
-                case MenuOperations.DeleteLabor:
-                    await laborController.DeleteLaborInfo();
-                    break;
-                case MenuOperations.ChangeLaborStatus:
-                    await laborController.ChangeLaborInfo();
-                    break;
-                default: throw new Exception("Exiting...");  
+                switch (choice)
+                {
+                    case MenuOperations.ShowAllLabor:
+                        await laborController.ShowAllLaborsInfoAsync();
+                        break;
+                    case MenuOperations.ShowLaborInfo:
+                        await laborController.ShowLaborInfoAsync();
+                        break;
+                    case MenuOperations.AddLabor:
+                        await laborController.CreateLaborAsync();
+                        break;
+                    case MenuOperations.DeleteLabor:
+                        await laborController.DeleteLaborInfo();
+                        break;
+                    case MenuOperations.ChangeLaborStatus:
+                        await laborController.ChangeLaborInfo();
+                        break;
+                    default: throw new Exception("Exiting...");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message); //Поимка всяческих ошибок при запросах к БД.
             }
         }
     }

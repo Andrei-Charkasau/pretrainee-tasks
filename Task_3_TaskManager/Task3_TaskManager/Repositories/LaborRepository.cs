@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace Task3_TaskManager
 {
-    public class LaborRepository : IRepository<Labor>
+    public class LaborRepository : ILaborRepository<Labor>
     {
         const string TableName = "Tasks";
+        
+        static readonly string CreateTableQuery = $@" CREATE TABLE IF NOT EXISTS {TableName} (Id INTEGER PRIMARY KEY AUTOINCREMENT, Title TEXT NOT NULL, Description TEXT, IsCompleted BOOLEAN NOT NULL DEFAULT 0, CreatedAt DATETIME NOT NULL);";
+        
         static readonly string CreateQuery = $"INSERT INTO {TableName} (Title, Description, IsCompleted, CreatedAt) VALUES (@title, @description, @isCompleted, @createdAt)";
         static readonly string DeleteQuery = $"DELETE FROM {TableName} WHERE Id = @id";
         static readonly string UpdateStatusQuery = $"UPDATE {TableName} SET Title = @title, Description = @description, IsCompleted = @isCompleted WHERE Id = @id";
@@ -20,6 +23,24 @@ namespace Task3_TaskManager
         public LaborRepository (IContext dapperContext)
         {
             Context = dapperContext;
+            InitializeDatabaseAsync().Wait();
+        }
+
+        private async Task InitializeDatabaseAsync()
+        {
+            try
+            {
+                using (var connection = Context.CreateConnection())
+                {
+                    await connection.ExecuteAsync(CreateTableQuery);
+                    Console.WriteLine($"Table '{TableName}' checked/created successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message); // Catch EX!!!
+                throw;
+            }
         }
 
         public async Task CreateAsync(Labor labor)
