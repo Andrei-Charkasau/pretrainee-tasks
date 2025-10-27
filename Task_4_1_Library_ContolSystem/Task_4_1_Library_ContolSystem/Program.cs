@@ -1,8 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Task_4_1_Library_ControlSystem.Contexts;
+using Task_4_1_Library_ControlSystem.Controllers;
+using Task_4_1_Library_ControlSystem.Models;
 using Task_4_1_Library_ControlSystem.Repositories;
 using Task_4_1_Library_ControlSystem.Services;
-using Task_4_1_Library_ControlSystem.Models;
-using Task_4_1_Library_ControlSystem.Controllers;
-using Task_4_1_Library_ControlSystem.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,13 +15,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IGuard, Guard>();
+builder.Services.AddDbContext<LibraryContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddTransient<IBookService, BookService>();
-builder.Services.AddTransient<IRepository<Book>, BookRepository>();
+builder.Services.AddTransient<IRepository<Book, int>, EntityRepository<Book, int>>();
 
 builder.Services.AddTransient<IAuthorService, AuthorService>();
-builder.Services.AddTransient<IRepository<Author>, AuthorRepository>();
+builder.Services.AddTransient<IRepository<Author, int>, EntityRepository<Author, int>>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();

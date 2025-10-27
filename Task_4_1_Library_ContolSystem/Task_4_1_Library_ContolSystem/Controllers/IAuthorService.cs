@@ -5,10 +5,12 @@ namespace Task_4_1_Library_ControlSystem.Controllers
 {
     public interface IAuthorService
     {
-        public void CreateAuthor(AuthorDto authorDto);
-        public void DeleteAuthor(int id);
-        public void UpdateAuthor(int id, AuthorDto authorDto);
-        public Author GetAuthorById(int id);
-        public List<Author> GetAllAuthors();
+        public Task CreateAuthorAsync(AuthorDto authorDto);
+        public Task DeleteAuthorAsync(int id);
+        public Task UpdateAuthorAsync(int id, AuthorDto authorDto);
+        public Task<Author> GetAuthorByIdAsync(int id);
+        public Task<List<AuthorWithBooksCountDto>> GetAllAuthorsWithBooksAmountAsync();
+        public Task<Author> GetAuthorByNameAsync(string authorName);
+        public Task<List<Author>> GetAllAuthorsAsync();
     }
 }

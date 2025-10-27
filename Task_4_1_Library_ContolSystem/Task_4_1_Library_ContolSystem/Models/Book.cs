@@ -7,12 +7,5 @@
         public int AuthorId { get; set; }
 
         public Book() { }
-        public Book(Book book)
-        {
-            Id = book.Id;
-            Title = book.Title;
-            PublishedYear = book.PublishedYear;
-            AuthorId = book.AuthorId;
-        }
     }
 }

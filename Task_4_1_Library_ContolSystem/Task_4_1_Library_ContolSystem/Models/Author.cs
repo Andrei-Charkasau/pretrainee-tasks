@@ -5,13 +5,8 @@
         public string? Name { get; set; }
         public DateTime DateOfBirth { get; set; }
 
-        public Author() { }
+        public virtual ICollection<Book> Books { get; set; } = new List<Book>();
 
-        public Author (Author author)
-        {
-            Id = author.Id;
-            Name = author.Name;
-            DateOfBirth = author.DateOfBirth;
-        }
+        public Author() { }
     }
 }

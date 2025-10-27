@@ -2,61 +2,75 @@
 using Task_4_1_Library_ControlSystem.DtoModels;
 using Task_4_1_Library_ControlSystem.Controllers;
 using Task_4_1_Library_ControlSystem.Validators;
+using Microsoft.EntityFrameworkCore;
 
 namespace Task_4_1_Library_ControlSystem.Services
 {
     public class AuthorService : IAuthorService
     {
 
-        private readonly IRepository<Author> _authorRepository;
-        private readonly IGuard _guard;
+        private readonly IRepository<Author, int> _authorRepository;
 
-        public AuthorService(IRepository<Author> authorRepository, IGuard guard)
+        public AuthorService(IRepository<Author, int> authorRepository)
         {
             _authorRepository = authorRepository;
-            _guard = guard;
         }
 
-        public void CreateAuthor(AuthorDto authorDto)
+        public async Task CreateAuthorAsync(AuthorDto authorDto)
         {
-            _guard.AgainstNullOrEmpty(authorDto.Name, "!!! ERROR: Author name must be filled. !!!");
+            authorDto.Name.ThrowExceptionIfNullOrWhiteSpace("!!! ERROR: Author name must be filled. !!!");
 
             Author author = new Author();
             author.Name = authorDto.Name;
             author.DateOfBirth = authorDto.DateOfBirth;
 
-            _authorRepository.Insert(author);
+            await _authorRepository.InsertAsync(author);
         }
 
-        public void DeleteAuthor(int authorId)
+        public async Task DeleteAuthorAsync(int authorId)
         {
-            var existingAuthor = _authorRepository.Get(authorId);
-            _guard.AgainstNull(existingAuthor, "!!! ERROR: Author not found. !!!");
-            _authorRepository.Delete(authorId);
+            var existingAuthor = _authorRepository.GetAsync(authorId);
+            existingAuthor.ThrowExceptionIfNull("!!! ERROR: Author not found. !!!");
+            await _authorRepository.DeleteAsync(authorId);
         }
 
-        public void UpdateAuthor(int authorId, AuthorDto authorDto)
+        public async Task UpdateAuthorAsync(int authorId, AuthorDto authorDto)
         {
-            _guard.AgainstNullOrEmpty(authorDto.Name, "!!! ERROR: Author name must be filled. !!!");
-            var existingAuthor = _authorRepository.Get(authorId);
-            _guard.AgainstNull(existingAuthor, "!!! ERROR: Author not found. !!!");
+            authorDto.Name.ThrowExceptionIfNullOrWhiteSpace("!!! ERROR: Author name must be filled. !!!");
+            var existingAuthor = _authorRepository.GetAsync(authorId);
+            existingAuthor.ThrowExceptionIfNull("!!! ERROR: Author not found. !!!");
 
             Author patchAuthor = new Author();
             patchAuthor.Name = authorDto.Name;
             patchAuthor.DateOfBirth = authorDto.DateOfBirth;
             patchAuthor.Id = authorId;
 
-            _authorRepository.Update(patchAuthor);
+            await _authorRepository.UpdateAsync(patchAuthor);
         }
 
-        public Author GetAuthorById(int id)
+        public async Task<Author> GetAuthorByIdAsync(int id)
         {
-            return _authorRepository.Get(id);
+            return await _authorRepository.GetAsync(id);
         }
 
-        public List<Author> GetAllAuthors()
+        public async Task<List<Author>> GetAllAuthorsAsync()
         {
-            return _authorRepository.GetAll();
+            return await _authorRepository.GetAll().ToListAsync();
+        }
+
+        public async Task<Author> GetAuthorByNameAsync(string authorName)
+        {
+            return (Author)await _authorRepository.FindAsync(x => x.Name.StartsWith($"{authorName.Trim()}"));
+        }
+
+        public async Task<List<AuthorWithBooksCountDto>> GetAllAuthorsWithBooksAmountAsync()
+        {
+            var authors = _authorRepository.GetAll().Select(x => new AuthorWithBooksCountDto(
+                x.Id,
+                x.Name,
+                x.Books.Count
+            ));
+            return await authors.ToListAsync();
         }
     }
 }

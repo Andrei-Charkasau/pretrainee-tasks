@@ -6,20 +6,20 @@ namespace Task_4_1_Library_ControlSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorController : ControllerBase
+    public class AurhorController : ControllerBase
     {
         private readonly IAuthorService _authorService;
-        public AuthorController(IAuthorService authorService)
+        public AurhorController(IAuthorService authorService)
         {
             _authorService = authorService;
         }
 
         [HttpGet]
-        public ActionResult<List<Author>> GetAllAuthors()
+        public async Task<ActionResult<List<Author>>> GetAllAuthors()
         {
             try
             {
-                return Ok(_authorService.GetAllAuthors());
+                return Ok(await _authorService.GetAllAuthorsAsync());
             }
             catch (Exception ex)
             {
@@ -28,11 +28,11 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         }
 
         [HttpGet("{authorId}")]
-        public ActionResult<Author> GetAuthorById(int authorId)
+        public async Task<ActionResult<Author>> GetAuthorById(int authorId)
         {
             try
             {
-                return Ok(_authorService.GetAuthorById(authorId));
+                return Ok(await _authorService.GetAuthorByIdAsync(authorId));
             }
             catch (Exception ex)
             {
@@ -40,12 +40,39 @@ namespace Task_4_1_Library_ControlSystem.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult<string> CreateAuthor(AuthorDto authorDto)
+        [HttpGet("Count")]
+        public async Task<ActionResult<List<AuthorWithBooksCountDto>>> GetAllAuthorsWithBooksAmount()
         {
             try
             {
-                _authorService.CreateAuthor(authorDto);
+                return Ok(await _authorService.GetAllAuthorsWithBooksAmountAsync());
+            }
+            catch (Exception ex)
+            {
+                return NotFound("Authors not Found.");
+            }
+        }
+
+        [HttpGet("ByName")]
+        public async Task<ActionResult<List<AuthorWithBooksCountDto>>> GetAuthorByName(string authorName)
+        {
+            try
+            {
+                return Ok(await _authorService.GetAuthorByNameAsync(authorName));
+            }
+            catch (Exception ex)
+            {
+                return NotFound("Author not Found.");
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult<string>> CreateAuthorAsync(AuthorDto authorDto)
+        {
+            try
+            {
+                await _authorService.CreateAuthorAsync(authorDto);
                 return StatusCode(201, "Author added.");
             }
             catch (Exception ex)
@@ -55,11 +82,11 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         }
 
         [HttpPatch]
-        public ActionResult<string> UpdateAuthor(int id, AuthorDto authorDto)
+        public async Task<ActionResult<string>> UpdateAuthorAsync(int id, AuthorDto authorDto)
         {
             try
             {
-                _authorService.UpdateAuthor(id, authorDto);
+                await _authorService.UpdateAuthorAsync(id, authorDto);
                 return Ok("Author modified.");
             }
             catch (Exception ex)
@@ -69,11 +96,11 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         }
 
         [HttpDelete]
-        public ActionResult<string> DeleteAuthor(int authorId)
+        public async Task<ActionResult<string>> DeleteAuthorAsync(int authorId)
         {
             try
             {
-                _authorService.DeleteAuthor(authorId);
+                await _authorService.DeleteAuthorAsync(authorId);
                 return Ok("Author erased.");
             }
             catch (Exception ex)
