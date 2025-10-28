@@ -1,8 +1,8 @@
 ﻿using Task_4_1_Library_ControlSystem.Models;
 using Task_4_1_Library_ControlSystem.DtoModels;
-using Task_4_1_Library_ControlSystem.Controllers;
 using Task_4_1_Library_ControlSystem.Validators;
 using Microsoft.EntityFrameworkCore;
+using Task_4_1_Library_ControlSystem.Repositories;
 
 namespace Task_4_1_Library_ControlSystem.Services
 {
@@ -20,16 +20,18 @@ namespace Task_4_1_Library_ControlSystem.Services
         {
             authorDto.Name.ThrowExceptionIfNullOrWhiteSpace("!!! ERROR: Author name must be filled. !!!");
 
-            Author author = new Author();
-            author.Name = authorDto.Name;
-            author.DateOfBirth = authorDto.DateOfBirth;
+            Author author = new Author()
+            {
+                Name = authorDto.Name.Trim(),
+                DateOfBirth = authorDto.DateOfBirth
+            };
 
             await _authorRepository.InsertAsync(author);
         }
 
         public async Task DeleteAuthorAsync(int authorId)
         {
-            var existingAuthor = _authorRepository.GetAsync(authorId);
+            var existingAuthor = await _authorRepository.GetAsync(authorId);
             existingAuthor.ThrowExceptionIfNull("!!! ERROR: Author not found. !!!");
             await _authorRepository.DeleteAsync(authorId);
         }
@@ -37,13 +39,15 @@ namespace Task_4_1_Library_ControlSystem.Services
         public async Task UpdateAuthorAsync(int authorId, AuthorDto authorDto)
         {
             authorDto.Name.ThrowExceptionIfNullOrWhiteSpace("!!! ERROR: Author name must be filled. !!!");
-            var existingAuthor = _authorRepository.GetAsync(authorId);
+            var existingAuthor = await _authorRepository.GetAsync(authorId);
             existingAuthor.ThrowExceptionIfNull("!!! ERROR: Author not found. !!!");
 
-            Author patchAuthor = new Author();
-            patchAuthor.Name = authorDto.Name;
-            patchAuthor.DateOfBirth = authorDto.DateOfBirth;
-            patchAuthor.Id = authorId;
+            Author patchAuthor = new Author()
+            {
+                Name = authorDto.Name.Trim(),
+                DateOfBirth = authorDto.DateOfBirth,
+                Id = authorId
+            };
 
             await _authorRepository.UpdateAsync(patchAuthor);
         }

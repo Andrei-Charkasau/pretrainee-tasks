@@ -1,7 +1,7 @@
 ﻿using Task_4_1_Library_ControlSystem.DtoModels;
 using Task_4_1_Library_ControlSystem.Models;
 
-namespace Task_4_1_Library_ControlSystem.Controllers
+namespace Task_4_1_Library_ControlSystem.Services
 {
     public interface IBookService
     {
@@ -11,6 +11,7 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         public Task<Book> GetBookByIdAsync(int id);
         public Task<List<Book>> GetBooksByAuthorIdAsync(int id);
         public Task<List<Book>> GetBooksFromPublishYearToNowAsync(int publishingYear);
+        public Task<List<Book>> GetBooksByTitleAsync(string bookTitle);
         public Task<List<Book>> GetAllBooksAsync();
     }
 }

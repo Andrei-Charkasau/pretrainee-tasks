@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Task_4_1_Library_ControlSystem.Models;
 using Task_4_1_Library_ControlSystem.DtoModels;
+using Task_4_1_Library_ControlSystem.Services;
 
 namespace Task_4_1_Library_ControlSystem.Controllers
 {
@@ -15,98 +16,60 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Book>>> GetAllBooks()
+        public async Task<ActionResult<List<Book>>> GetAllBooksAsync()
         {
-            try
-            {
-                return Ok(await _bookService.GetAllBooksAsync());
-            }
-            catch (Exception ex)
-            {
-                return NotFound("Book not Found.");
-            }
+            var books = await _bookService.GetAllBooksAsync();
+            return Ok(books);
         }
 
         [HttpGet("{bookId}")]
         public async Task<ActionResult<Book>> GetBookByIdAsync(int bookId)
         {
-            try
-            {
-                return Ok(await _bookService.GetBookByIdAsync(bookId));
-            }
-            catch (Exception ex)
-            {
-                return NotFound("Book not Found.");
-            }
+            var book = await _bookService.GetBookByIdAsync(bookId);
+            return Ok(book);
         }
 
         [HttpGet("Author/{authorId}")]
-        public async Task<ActionResult<Book>> GetBookByAuthorId(int authorId)
+        public async Task<ActionResult<Book>> GetBookByAuthorIdAsync(int authorId)
         {
-            try
-            {
-                return Ok(await _bookService.GetBooksByAuthorIdAsync(authorId));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var books = await _bookService.GetBooksByAuthorIdAsync(authorId);
+            return Ok(books);
         }
 
         [HttpGet("Year/{publishingYear}")]
         public async Task<ActionResult<Book>> GetBooksFromPublishYearToNowAsync(int publishingYear)
         {
-            try
-            {
-                return Ok(await _bookService.GetBooksFromPublishYearToNowAsync(publishingYear));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var books = await _bookService.GetBooksFromPublishYearToNowAsync(publishingYear);
+            return Ok(books);
+        }
+
+        [HttpGet("Search")]
+        public async Task<ActionResult<List<Book>>> GetBooksByTitleAsync(string bookTitle)
+        {
+            var books = await _bookService.GetBooksByTitleAsync(bookTitle);
+            return Ok(books);
         }
 
 
         [HttpPost]
         public async Task<ActionResult<string>> CreateBookAsync(BookDto bookDto)
         {
-            try
-            {
-                _bookService.CreateBookAsync(bookDto);
-                return StatusCode(201, "Book added.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            await _bookService.CreateBookAsync(bookDto);
+            return Ok("Book created successfully.");
         }
 
         [HttpPatch]
         public async Task<ActionResult<string>> UpdateBookAsync(int id, BookDto bookDto)
         {
-            try
-            {
-                await _bookService.UpdateBookAsync(id, bookDto);
-                return Ok("Book modified.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            await _bookService.UpdateBookAsync(id, bookDto);
+            return NoContent();
         }
 
         [HttpDelete]
         public async Task<ActionResult<string>> DeleteBookAsync(int bookId)
         {
-            try
-            {
-                await _bookService.DeleteBookAsync(bookId);
-                return Ok("Book erased.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            await _bookService.DeleteBookAsync(bookId);
+            return NoContent();
         }
     }
 }

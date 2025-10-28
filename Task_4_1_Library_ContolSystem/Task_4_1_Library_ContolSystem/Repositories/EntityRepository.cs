@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using System.Runtime.InteropServices;
 using Task_4_1_Library_ControlSystem.Contexts;
 using Task_4_1_Library_ControlSystem.Models;
-using Task_4_1_Library_ControlSystem.Services;
 
 namespace Task_4_1_Library_ControlSystem.Repositories
 {

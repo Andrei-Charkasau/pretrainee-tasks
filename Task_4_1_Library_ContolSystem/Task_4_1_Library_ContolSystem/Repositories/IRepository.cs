@@ -1,7 +1,6 @@
 ﻿using System.Linq.Expressions;
-using System.Threading.Tasks;
 
-namespace Task_4_1_Library_ControlSystem.Services
+namespace Task_4_1_Library_ControlSystem.Repositories
 {
     public interface IRepository<T,TId>
         where T : class

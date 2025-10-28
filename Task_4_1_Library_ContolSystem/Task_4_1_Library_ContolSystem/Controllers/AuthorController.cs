@@ -1,113 +1,67 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Task_4_1_Library_ControlSystem.Models;
 using Task_4_1_Library_ControlSystem.DtoModels;
+using Task_4_1_Library_ControlSystem.Services;
 
 namespace Task_4_1_Library_ControlSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AurhorController : ControllerBase
+    public class AuthorController : ControllerBase
     {
         private readonly IAuthorService _authorService;
-        public AurhorController(IAuthorService authorService)
+        public AuthorController(IAuthorService authorService)
         {
             _authorService = authorService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Author>>> GetAllAuthors()
+        public async Task<ActionResult<List<Author>>> GetAllAuthorsAsync()
         {
-            try
-            {
-                return Ok(await _authorService.GetAllAuthorsAsync());
-            }
-            catch (Exception ex)
-            {
-                return NotFound("Author not Found.");
-            }
+            var authors = await _authorService.GetAllAuthorsAsync();
+            return Ok(authors);
         }
 
         [HttpGet("{authorId}")]
-        public async Task<ActionResult<Author>> GetAuthorById(int authorId)
+        public async Task<ActionResult<Author>> GetAuthorByIdAsync(int authorId)
         {
-            try
-            {
-                return Ok(await _authorService.GetAuthorByIdAsync(authorId));
-            }
-            catch (Exception ex)
-            {
-                return NotFound("Author not Found.");
-            }
+            var author = await _authorService.GetAuthorByIdAsync(authorId);
+            return Ok(author);
         }
 
-        [HttpGet("Count")]
-        public async Task<ActionResult<List<AuthorWithBooksCountDto>>> GetAllAuthorsWithBooksAmount()
+        [HttpGet("With_books_count")]
+        public async Task<ActionResult<List<AuthorWithBooksCountDto>>> GetAllAuthorsWithBooksAmountAsync()
         {
-            try
-            {
-                return Ok(await _authorService.GetAllAuthorsWithBooksAmountAsync());
-            }
-            catch (Exception ex)
-            {
-                return NotFound("Authors not Found.");
-            }
+            var authors = await _authorService.GetAllAuthorsWithBooksAmountAsync();
+            return Ok(authors);
         }
 
-        [HttpGet("ByName")]
-        public async Task<ActionResult<List<AuthorWithBooksCountDto>>> GetAuthorByName(string authorName)
+        [HttpGet("Search")]
+        public async Task<ActionResult<Author>> GetAuthorByNameAsync(string authorName)
         {
-            try
-            {
-                return Ok(await _authorService.GetAuthorByNameAsync(authorName));
-            }
-            catch (Exception ex)
-            {
-                return NotFound("Author not Found.");
-            }
+            var author = await _authorService.GetAuthorByNameAsync(authorName);
+            return Ok(author);
         }
-
 
         [HttpPost]
-        public async Task<ActionResult<string>> CreateAuthorAsync(AuthorDto authorDto)
+        public async Task<ActionResult> CreateAuthorAsync(AuthorDto authorDto)
         {
-            try
-            {
-                await _authorService.CreateAuthorAsync(authorDto);
-                return StatusCode(201, "Author added.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            await _authorService.CreateAuthorAsync(authorDto);
+            return Ok("Author created successfully.");
         }
 
         [HttpPatch]
         public async Task<ActionResult<string>> UpdateAuthorAsync(int id, AuthorDto authorDto)
         {
-            try
-            {
-                await _authorService.UpdateAuthorAsync(id, authorDto);
-                return Ok("Author modified.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            await _authorService.UpdateAuthorAsync(id, authorDto);
+            return NoContent();
         }
 
         [HttpDelete]
         public async Task<ActionResult<string>> DeleteAuthorAsync(int authorId)
         {
-            try
-            {
-                await _authorService.DeleteAuthorAsync(authorId);
-                return Ok("Author erased.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            await _authorService.DeleteAuthorAsync(authorId);
+            return NoContent();
         }
-
     }
 }

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Task_4_1_Library_ControlSystem.Contexts;
-using Task_4_1_Library_ControlSystem.Controllers;
+using Task_4_1_Library_ControlSystem.Extensions;
 using Task_4_1_Library_ControlSystem.Models;
 using Task_4_1_Library_ControlSystem.Repositories;
 using Task_4_1_Library_ControlSystem.Services;
@@ -27,6 +27,8 @@ builder.Services.AddTransient<IRepository<Author, int>, EntityRepository<Author,
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+app.UseGlobalExceptionHandler();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
