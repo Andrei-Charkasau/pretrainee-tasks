@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Task_4_1_Library_ControlSystem.Models;
 using Task_4_1_Library_ControlSystem.DtoModels;
+using Task_4_1_Library_ControlSystem.Services;
 
 namespace Task_4_1_Library_ControlSystem.Controllers
 {
@@ -15,71 +16,60 @@ namespace Task_4_1_Library_ControlSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Book>> GetAllBooks()
+        public async Task<ActionResult<List<Book>>> GetAllBooksAsync()
         {
-            try
-            {
-                return Ok(_bookService.GetAllBooks());
-            }
-            catch (Exception ex)
-            {
-                return NotFound("Book not Found.");
-            }
+            var books = await _bookService.GetAllBooksAsync();
+            return Ok(books);
         }
 
         [HttpGet("{bookId}")]
-        public ActionResult<Book> GetBookById(int bookId)
+        public async Task<ActionResult<Book>> GetBookByIdAsync(int bookId)
         {
-            try
-            {
-                return Ok(_bookService.GetBookById(bookId));
-            }
-            catch(Exception ex)
-            {
-                return NotFound("Book not Found.");
-            }
+            var book = await _bookService.GetBookByIdAsync(bookId);
+            return Ok(book);
         }
 
-        [HttpPost]
-        public ActionResult<string> CreateBook(BookDto bookDto)
+        [HttpGet("Author/{authorId}")]
+        public async Task<ActionResult<Book>> GetBookByAuthorIdAsync(int authorId)
         {
-            try
-            {
-                _bookService.CreateBook(bookDto);
-                return StatusCode(201, "Book added.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var books = await _bookService.GetBooksByAuthorIdAsync(authorId);
+            return Ok(books);
+        }
+
+        [HttpGet("Year/{publishingYear}")]
+        public async Task<ActionResult<Book>> GetBooksFromPublishYearToNowAsync(int publishingYear)
+        {
+            var books = await _bookService.GetBooksFromPublishYearToNowAsync(publishingYear);
+            return Ok(books);
+        }
+
+        [HttpGet("Search")]
+        public async Task<ActionResult<List<Book>>> GetBooksByTitleAsync(string bookTitle)
+        {
+            var books = await _bookService.GetBooksByTitleAsync(bookTitle);
+            return Ok(books);
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult<string>> CreateBookAsync(BookDto bookDto)
+        {
+            await _bookService.CreateBookAsync(bookDto);
+            return Ok("Book created successfully.");
         }
 
         [HttpPatch]
-        public ActionResult<string> UpdateBook(int id, BookDto bookDto)
+        public async Task<ActionResult<string>> UpdateBookAsync(int id, BookDto bookDto)
         {
-            try
-            {
-                _bookService.UpdateBook(id, bookDto);
-                return Ok("Book modified.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            await _bookService.UpdateBookAsync(id, bookDto);
+            return NoContent();
         }
 
         [HttpDelete]
-        public ActionResult<string> DeleteBook(int bookId)
+        public async Task<ActionResult<string>> DeleteBookAsync(int bookId)
         {
-            try
-            {
-                _bookService.DeleteBook(bookId);
-                return Ok("Book erased.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            await _bookService.DeleteBookAsync(bookId);
+            return NoContent();
         }
     }
 }

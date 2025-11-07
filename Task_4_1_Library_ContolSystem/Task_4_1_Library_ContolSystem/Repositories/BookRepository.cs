@@ -1,47 +1,73 @@
-﻿using Task_4_1_Library_ControlSystem.Models;
-using Task_4_1_Library_ControlSystem.Services;
+﻿using Task_4_1_Library_ControlSystem.Contexts;
+using Task_4_1_Library_ControlSystem.Models;
 
 namespace Task_4_1_Library_ControlSystem.Repositories
 {
     public class BookRepository : IRepository<Book>
     {
-        private static List<Book> _books = new List<Book>();
-        private static int lastInt = 0; 
+        private readonly LibraryContext _context;
+
+        public BookRepository(LibraryContext context)
+        {
+            _context = context;
+        }
 
         public void Insert(Book book)
         {
-            book.Id = lastInt++;
-            _books.Add(book);
+            _context.Books.Add(book);
+            _context.SaveChanges();
         }
 
         public void Update(Book patchBook)
         {
-            Book bookToUpdated = _books.FirstOrDefault(book => book.Id == patchBook.Id);
-            if (bookToUpdated != null)
+            var bookToUpdate = _context.Books.FirstOrDefault(book => book.Id == patchBook.Id);
+
+            if (bookToUpdate != null)
             {
-                bookToUpdated.Title = patchBook.Title;
-                bookToUpdated.PublishedYear = patchBook.PublishedYear;
-                bookToUpdated.AuthorId = patchBook.AuthorId;
-                bookToUpdated.Id = patchBook.Id;
+                bookToUpdate.Title = patchBook.Title;
+                bookToUpdate.PublishedYear = patchBook.PublishedYear;
+                bookToUpdate.AuthorId = patchBook.AuthorId;
+
+                _context.SaveChanges();
             }
         }
         public void Delete(int bookId)
         {
-            Book bookToDelete = _books.FirstOrDefault(book => book.Id == bookId);
+            var bookToDelete = _context.Books.FirstOrDefault(book => book.Id == bookId);
+
             if (bookToDelete != null)
             {
-                _books.Remove(bookToDelete);
+                _context.Books.Remove(bookToDelete);
+                _context.SaveChanges();
             }
         }
 
         public List<Book> GetAll()
         {
-            return _books;
+            return _context.Books.ToList();
         }
 
         public Book Get(int bookId)
         {
-            return _books.FirstOrDefault(book => book.Id == bookId);
+            return _context.Books.FirstOrDefault(book => book.Id == bookId);
+        }
+
+        //------------------------------------------Services / Reps continue!
+        /*
+            public IEnumerable<Book> GetBookByAuthorId(int authorId)
+            {
+                return _context.Books.Where(book => book.AuthorId == authorId);
+            }
+
+            public IEnumerable<Book> GetBooksByYearOfCreation(int publishedYear)
+            {
+                return _context.Books.Where(book => book.PublishedYear > publishedYear);
+            }
+        */
+
+        public IQueryable<Book> GetAllNew()
+        {
+            return _context.Books.AsQueryable();
         }
     }
 }

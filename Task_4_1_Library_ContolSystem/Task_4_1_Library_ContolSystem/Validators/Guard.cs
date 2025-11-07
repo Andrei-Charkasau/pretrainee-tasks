@@ -1,22 +1,30 @@
-﻿using Task_4_1_Library_ControlSystem.Services;
+﻿using Task_4_1_Library_ControlSystem.Exceptions;
 
 namespace Task_4_1_Library_ControlSystem.Validators
 {
-    public class Guard : IGuard
+    public static class Guard
     {
-        public void AgainstNull<T>(T objectToValidate, string errorMessage)
+        public static void ThrowExceptionIfNull<T>(this T objectToValidate, string errorMessage)
         {
             if (objectToValidate == null)
             {
-                throw new Exception(errorMessage);
+                throw new ArgumentNullException(errorMessage);
             }
         }
 
-        public void AgainstNullOrEmpty(string stringToValidate, string errorMessage)
+        public static void ThrowExceptionIfNullOrWhiteSpace(this string stringToValidate, string errorMessage)
         {
-            if (string.IsNullOrEmpty(stringToValidate))
+            if (string.IsNullOrWhiteSpace(stringToValidate))
             {
-                throw new Exception(errorMessage);
+                throw new ArgumentNullException(errorMessage);
+            }
+        }
+
+        public static void ThrowExceptionIfNegativeYear(int year, string errorMessage)
+        {
+            if (year <= 0)
+            {
+                throw new NegativeNumberException(year, errorMessage);
             }
         }
     }
