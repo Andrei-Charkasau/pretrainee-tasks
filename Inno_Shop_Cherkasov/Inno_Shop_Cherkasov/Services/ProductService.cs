@@ -1,8 +1,8 @@
 ﻿using Inno_Shop_Cherkasov.DtoModels;
 using Inno_Shop_Cherkasov.Models;
 using Inno_Shop_Cherkasov.Repositories;
+using Inno_Shop_Cherkasov.Validators;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
 
 namespace Inno_Shop_Cherkasov.Services
 {
@@ -17,12 +17,17 @@ namespace Inno_Shop_Cherkasov.Services
 
         public async Task CreateAsync(ProductDto productDto)
         {
+            productDto.Name.ThrowExceptionIfNullOrWhiteSpace("!!! ERROR: Product's NAME must be filled. !!!");
+            productDto.Availability.ThrowExceptionIfNull("!!! ERROR: AVAILABILITY for product must be set. !!!");
+            productDto.Price.ThrowExceptionIfNull("!!! ERROR:Product's PRICE must be set (NOT NULL). !!!");
+
             Product product = new Product()
             {
                 Name = productDto.Name.Trim(),
                 Description = productDto.Description.Trim(),
                 Price = productDto.Price,
                 CreationDate = productDto.CreationDate,
+                Availability = productDto.Availability,
                 CreatorId = productDto.CreatorId
             };
             await _productRepository.InsertAsync(product);
@@ -30,7 +35,9 @@ namespace Inno_Shop_Cherkasov.Services
 
         public async Task DeleteAsync(int productId)
         {
-            throw new NotImplementedException();
+            var existingProduct = await _productRepository.GetAsync(productId);
+            existingProduct.ThrowExceptionIfNull("ERROR: Product not found. !!!");
+            await _productRepository.DeleteAsync(productId);
         }
 
         public async Task<Product> GetAsync(int productId)
@@ -45,15 +52,19 @@ namespace Inno_Shop_Cherkasov.Services
 
         public async Task UpdateAsync(int productId, ProductDto productDto)
         {
+            productDto.Name.ThrowExceptionIfNullOrWhiteSpace("!!! ERROR: Product's NAME must be filled. !!!");
+            productDto.Availability.ThrowExceptionIfNull("!!! ERROR: AVAILABILITY for product must be set. !!!");
+            productDto.Price.ThrowExceptionIfNull("!!! ERROR:Product's PRICE must be set (NOT NULL). !!!");
             var existingProduct = await _productRepository.GetAsync(productId);
+            existingProduct.ThrowExceptionIfNull("!!! ERROR: Product not found. !!!");
 
             Product patchProduct = new Product()
             {
                 Id = productId,
-                Name = productDto.Name,
-                Description = productDto.Description,
+                Name = productDto.Name.Trim(),
+                Description = productDto.Description.Trim(),
                 Price = productDto.Price,
-                CreationDate = productDto.CreationDate
+                Availability = productDto.Availability,
             };
 
             await _productRepository.UpdateAsync(patchProduct);

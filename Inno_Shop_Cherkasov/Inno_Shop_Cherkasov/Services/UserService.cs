@@ -1,6 +1,8 @@
 ﻿using Inno_Shop_Cherkasov.DtoModels;
 using Inno_Shop_Cherkasov.Models;
 using Inno_Shop_Cherkasov.Repositories;
+using Inno_Shop_Cherkasov.Validators;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace Inno_Shop_Cherkasov.Services
@@ -17,6 +19,10 @@ namespace Inno_Shop_Cherkasov.Services
 
         public async Task CreateAsync(UserDto userDto)
         {
+            userDto.Name.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's NAME must be filled. !!!");
+            userDto.Email.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
+            userDto.Role.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
+
             User user = new User()
             {
                 Name = userDto.Name.Trim(),
@@ -29,7 +35,7 @@ namespace Inno_Shop_Cherkasov.Services
         public async Task DeleteAsync(int userId)
         {
             var existingUser = await _userRepository.GetAsync(userId);
-            _userRepository.DeleteAsync(userId);
+            await _userRepository.DeleteAsync(userId);
         }
 
         public async Task<User> GetAsync(int userId)
@@ -44,7 +50,11 @@ namespace Inno_Shop_Cherkasov.Services
 
         public async Task UpdateAsync(int userId, UserDto userDto)
         {
+            userDto.Name.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's NAME must be filled. !!!");
+            userDto.Email.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
+            userDto.Role.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
             var existingUser = await _userRepository.GetAsync(userId);
+            existingUser.ThrowExceptionIfNull("ERROR: User not found. !!!");
 
             User patchUser = new User()
             {
