@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Inno_Shop_Cherkasov.Models;
-using Inno_Shop_Cherkasov.Services;
-using Inno_Shop_Cherkasov.DtoModels;
+using Microsoft.AspNetCore.Authorization;
+using InnoShop.Core.Services.Services;
+using InnoShop.Core.Models;
+using InnoShop.Core.DtoModels;
 
-namespace Inno_Shop_Cherkasov.Controllers
+namespace InnoShop.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -17,6 +19,7 @@ namespace Inno_Shop_Cherkasov.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<IEnumerable<Product>>> GetAllProductsAsync()
         {
             var products = await _productService.GetAllAsync();
@@ -24,13 +27,15 @@ namespace Inno_Shop_Cherkasov.Controllers
         }
 
         [HttpGet("{productId}")]
-        public async Task<ActionResult<Product>> GetProductAsync(int id)
+        [Authorize(Roles = "User,Admin")]
+        public async Task<ActionResult<Product>> GetProductAsync(int productId)
         {
-            var product = await _productService.GetAsync(id);
+            var product = await _productService.GetAsync(productId);
             return Ok(product);
         }
 
         [HttpPost]
+        [Authorize(Roles = "User,Admin")]
         public async Task<ActionResult> CreateProductAsync(ProductDto productDto)
         {
             await _productService.CreateAsync(productDto);
@@ -38,6 +43,7 @@ namespace Inno_Shop_Cherkasov.Controllers
         }
 
         [HttpPatch]
+        [Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<string>> UpdateProductAsync(int id, ProductDto productDto)
         {
             await _productService.UpdateAsync(id, productDto);
@@ -45,6 +51,7 @@ namespace Inno_Shop_Cherkasov.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<string>> DeleteProductAsync(int id)
         {
             await _productService.DeleteAsync(id);

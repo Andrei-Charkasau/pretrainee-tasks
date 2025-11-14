@@ -1,13 +1,14 @@
-﻿using Inno_Shop_Cherkasov.Contexts;
-using Inno_Shop_Cherkasov.DtoModels;
-using Inno_Shop_Cherkasov.Models;
-using Inno_Shop_Cherkasov.Services;
+﻿using InnoShop.Core.DtoModels;
+using InnoShop.Core.Models;
+using InnoShop.Core.Services.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Inno_Shop_Cherkasov.Controllers
+namespace InnoShop.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -18,6 +19,7 @@ namespace Inno_Shop_Cherkasov.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsersAsync()
         {
             var users = await _userService.GetAllAsync();
@@ -25,13 +27,15 @@ namespace Inno_Shop_Cherkasov.Controllers
         }
 
         [HttpGet("{userId}")]
-        public async Task<ActionResult<User>> GetUserAsync(int id)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<User>> GetUserAsync(int userId)
         {
-            var user = await _userService.GetAsync(id);
+            var user = await _userService.GetAsync(userId);
             return Ok(user);
         }
 
         [HttpPost]
+        [Authorize(Roles = "User,Admin")]
         public async Task<ActionResult> CreateUserAsync(UserDto userDto)
         {
             await _userService.CreateAsync(userDto);
@@ -39,6 +43,7 @@ namespace Inno_Shop_Cherkasov.Controllers
         }
 
         [HttpPatch]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<string>> UpdateUserAsync(int id, UserDto userDto)
         {
             await _userService.UpdateAsync(id, userDto);
@@ -46,6 +51,7 @@ namespace Inno_Shop_Cherkasov.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<string>> DeleteUserAsync(int id)
         {
             await _userService.DeleteAsync(id);

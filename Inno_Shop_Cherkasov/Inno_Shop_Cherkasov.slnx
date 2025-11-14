@@ -1,3 +1,12 @@
 <Solution>
-  <Project Path="Inno_Shop_Cherkasov/Inno_Shop_Cherkasov.csproj" />
+  <Folder Name="/Auth/">
+    <Project Path="InnoShop.Auth.Services/InnoShop.Auth.Services.csproj" Id="f620a590-09f6-4d8b-a978-e5382c2706a1" />
+    <Project Path="InnoShop.Auth/InnoShop.Auth.csproj" Id="1e571d90-9413-4d22-a2c1-63b43c2ada75" />
+  </Folder>
+  <Folder Name="/Core/">
+    <Project Path="InnoShop.Core.Repositories/InnoShop.Core.Repositories.csproj" Id="9cd73fae-2425-480e-8d34-1eb8950ca37a" />
+    <Project Path="InnoShop.Core.Services/InnoShop.Core.Services.csproj" Id="0426894d-fbac-49e7-9b9d-119897df7e63" />
+    <Project Path="InnoShop.Core/InnoShop.Core.csproj" Id="10c6ae8a-2ab5-4a4d-9a17-d58fe3b4126f" />
+    <Project Path="Inno_Shop_Cherkasov/InnoShop.csproj" />
+  </Folder>
 </Solution>
