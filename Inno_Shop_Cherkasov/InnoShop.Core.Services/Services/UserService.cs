@@ -19,7 +19,7 @@ namespace InnoShop.Core.Services.Services
             _jwtService = jwtService;
         }
 
-        public async Task CreateAsync(RegisterDto registerDto)
+        public async Task<User> CreateAsync(RegisterDto registerDto)
         {
             var existingUser = await _userRepository.GetAll().FirstOrDefaultAsync(u => u.Email == registerDto.Email);
             if (existingUser != null)
@@ -30,7 +30,7 @@ namespace InnoShop.Core.Services.Services
             registerDto.Email.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
             registerDto.Role.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
 
-            var confirmationToken = _jwtService.GenerateToken();
+            var confirmationToken = GenerateConfirmationToken();
 
             User user = new User()
             {
@@ -43,6 +43,7 @@ namespace InnoShop.Core.Services.Services
                 EmailConfirmationTokenExpires = DateTime.UtcNow.AddDays(1) //
             };
             await _userRepository.InsertAsync(user);
+            return user;
         }
 
         public async Task DeleteAsync(int userId)
@@ -83,10 +84,27 @@ namespace InnoShop.Core.Services.Services
             var users = await _userRepository.GetAll().ToListAsync();
             var user = users.FirstOrDefault(u => u.Email == loginDto.Email);
 
-            if (user == null || !_jwtService.VerifyPassword(loginDto.Password, user.PasswordHash))
+            if (user == null || !user.IsEmailConfirmed || !_jwtService.VerifyPassword(loginDto.Password, user.PasswordHash))
+            {
                 return null;
+            }
 
             return "Bearer " + _jwtService.GenerateToken(user);
+        }
+
+        public async Task<bool> ConfirmEmailAsync(string token)
+        {
+            var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.EmailConfirmationToken == token && 
+                                                                               x.EmailConfirmationTokenExpires > DateTime.UtcNow);
+
+            if (user == null) return false;
+
+            user.IsEmailConfirmed = true;
+            user.EmailConfirmationToken = null;
+            user.EmailConfirmationTokenExpires = null;
+
+            await _userRepository.UpdateAsync(user);
+            return true;
         }
 
         private string GenerateConfirmationToken()

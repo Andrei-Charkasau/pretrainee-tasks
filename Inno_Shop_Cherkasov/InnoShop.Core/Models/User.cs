@@ -7,7 +7,7 @@
         public string Role { get; set; }
         public string PasswordHash { get; set; }
         public bool IsEmailConfirmed { get; set; } = false;
-        public string EmailConfirmationToken { get; set; }
+        public string? EmailConfirmationToken { get; set; }
         public DateTime? EmailConfirmationTokenExpires { get; set; }
 
         public User() { }

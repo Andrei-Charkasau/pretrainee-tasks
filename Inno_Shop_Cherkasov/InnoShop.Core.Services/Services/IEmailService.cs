@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InnoShop.Core.Services.Services
+﻿namespace InnoShop.Core.Services.Services
 {
     public interface IEmailService
     {
-        Task<bool> SendConfirmationEmailAsync(string email, string confirmationToken);
+        Task<bool> SendConfirmationEmailAsync(string toEmail, string mailSubject);
     }
 }

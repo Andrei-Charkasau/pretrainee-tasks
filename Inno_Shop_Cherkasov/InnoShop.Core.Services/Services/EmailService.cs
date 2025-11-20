@@ -1,15 +1,28 @@
 ﻿namespace InnoShop.Core.Services.Services
 {
     using MailKit.Net.Smtp;
-    using MimeKit;
     using MailKit.Security;
+    using Microsoft.Extensions.Configuration;
+    using MimeKit;
 
     public class EmailService : IEmailService
     {
+        private readonly IConfiguration _configuration;
+
+        public EmailService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public async Task<bool> SendConfirmationEmailAsync(string email, string confirmationToken)
         {
             try
             {
+                var smtpServer = _configuration["EmailSettings:SmtpServer"];
+                var port = int.Parse(_configuration["EmailSettings:Port"]);
+                var fromMail = _configuration["EmailSettings:Username"];
+                var password = _configuration["EmailSettings:Password"];
+
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress("INNOSHOP & Co.", "noreply@innoshopco.com"));
                 message.To.Add(new MailboxAddress("", email));
@@ -30,22 +43,19 @@
 
                 message.Body = bodyBuilder.ToMessageBody();
 
-                using var client = new SmtpClient();
+                using var smtp = new SmtpClient();
+                await smtp.ConnectAsync(smtpServer, port, SecureSocketOptions.StartTls);
+                await smtp.AuthenticateAsync(fromMail, password);
+                await smtp.SendAsync(message);
+                await smtp.DisconnectAsync(true);
 
-                await client.ConnectAsync("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
-                await client.AuthenticateAsync("kyla.greenholt@ethereal.email", "BAHTu9KgBBX47hRUWM");
-
-                await client.SendAsync(message);
-                await client.DisconnectAsync(true);
-
-                Console.WriteLine($"Email sent to: {email}");
                 return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Email failed: {ex.Message}");
                 return false;
             }
         }
     }
 }
+
