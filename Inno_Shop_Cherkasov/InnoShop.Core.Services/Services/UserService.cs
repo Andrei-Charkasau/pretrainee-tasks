@@ -3,6 +3,7 @@ using InnoShop.Core.Models;
 using InnoShop.Core.Repositories.Repositories;
 using InnoShop.Core.Services.Validators;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 
 namespace InnoShop.Core.Services.Services
@@ -18,17 +19,28 @@ namespace InnoShop.Core.Services.Services
             _jwtService = jwtService;
         }
 
-        public async Task CreateAsync(UserDto userDto)
+        public async Task CreateAsync(RegisterDto registerDto)
         {
-            userDto.Name.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's NAME must be filled. !!!");
-            userDto.Email.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
-            userDto.Role.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
+            var existingUser = await _userRepository.GetAll().FirstOrDefaultAsync(u => u.Email == registerDto.Email);
+            if (existingUser != null)
+            {
+                throw new Exception("ERROR: User with this E-MAIL ALREADY EXISTS. !!!");
+            }
+            registerDto.Name.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's NAME must be filled. !!!");
+            registerDto.Email.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
+            registerDto.Role.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
+
+            var confirmationToken = _jwtService.GenerateToken();
 
             User user = new User()
             {
-                Name = userDto.Name.Trim(),
-                Email = userDto.Email.Trim(),
-                Role = userDto.Role.Trim()
+                Name = registerDto.Name.Trim(),
+                Email = registerDto.Email.Trim(),
+                Role = registerDto.Role.Trim(),
+                PasswordHash = _jwtService.HashPassword(registerDto.Password.Trim()),
+                IsEmailConfirmed = false,
+                EmailConfirmationToken = confirmationToken,
+                EmailConfirmationTokenExpires = DateTime.UtcNow.AddDays(1) //
             };
             await _userRepository.InsertAsync(user);
         }
@@ -71,10 +83,16 @@ namespace InnoShop.Core.Services.Services
             var users = await _userRepository.GetAll().ToListAsync();
             var user = users.FirstOrDefault(u => u.Email == loginDto.Email);
 
-            if (user == null)
+            if (user == null || !_jwtService.VerifyPassword(loginDto.Password, user.PasswordHash))
                 return null;
 
-            return _jwtService.GenerateToken(user);
+            return "Bearer " + _jwtService.GenerateToken(user);
+        }
+
+        private string GenerateConfirmationToken()
+        {
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32))
+                .Replace("+", "-").Replace("/", "_").Replace("=", "");
         }
     }
 }

@@ -5,7 +5,7 @@ namespace InnoShop.Core.Services.Services
 {
     public interface IUserService
     {
-        public Task CreateAsync(UserDto userDto);
+        public Task CreateAsync(RegisterDto registerDto);
         public Task UpdateAsync(int userId, UserDto userDto);
         public Task DeleteAsync(int userId);
         public Task<User> GetAsync(int userId);

@@ -1,6 +1,7 @@
 ﻿using InnoShop.Core.DtoModels;
 using InnoShop.Core.Services.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Specialized;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -25,25 +26,11 @@ public class AuthController : ControllerBase
 
         return Ok(new { Token = token });
     }
-
+    
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
     {
-        try
-        {
-            var userDto = new UserDto
-            {
-                Name = registerDto.Name,
-                Email = registerDto.Email,
-                Role = registerDto.Role
-            };
-
-            await _userService.CreateAsync(userDto);
-            return Ok("User registered successfully");
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        await _userService.CreateAsync(registerDto);
+        return Ok("User registered successfully");
     }
 }
