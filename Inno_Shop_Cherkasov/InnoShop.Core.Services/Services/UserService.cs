@@ -11,11 +11,13 @@ namespace InnoShop.Core.Services.Services
     public class UserService : IUserService
     {
         private readonly IJwtService _jwtService;
+        private readonly IProductService _productService;
         private readonly IRepository<User, int> _userRepository;
 
-        public UserService(IRepository<User,int> repository, IJwtService jwtService)
+        public UserService(IRepository<User,int> repository, IJwtService jwtService, IProductService productService)
         {
             _userRepository = repository;
+            _productService = productService;
             _jwtService = jwtService;
         }
 
@@ -30,7 +32,7 @@ namespace InnoShop.Core.Services.Services
             registerDto.Email.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
             registerDto.Role.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
 
-            var confirmationToken = GenerateConfirmationToken();
+            var confirmationToken = GenerateSecureToken();
 
             User user = new User()
             {
@@ -79,6 +81,12 @@ namespace InnoShop.Core.Services.Services
             await _userRepository.UpdateAsync(existingUser);
 
         }
+
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _userRepository.GetAll().FirstOrDefaultAsync(u => u.Email == email);
+        }
+
         public async Task<string> AuthenticateAsync(LoginDto loginDto)
         {
             var users = await _userRepository.GetAll().ToListAsync();
@@ -107,10 +115,84 @@ namespace InnoShop.Core.Services.Services
             return true;
         }
 
-        private string GenerateConfirmationToken()
+        public async Task<string> GeneratePasswordResetTokenAsync(string email)
+        {
+            var user = await _userRepository.GetAll().FirstOrDefaultAsync(u => u.Email == email &&
+                                                                               u.IsEmailConfirmed == true);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var resetToken = GenerateSecureToken();
+
+            user.PasswordResetToken = resetToken;
+            user.PasswordResetTokenExpires = DateTime.UtcNow.AddHours(1);
+
+            await _userRepository.UpdateAsync(user);
+            return resetToken;
+        }
+
+        public async Task<bool> ResetPasswordAsync(string token, string newPassword)
+        {
+            var user = await _userRepository.GetAll().FirstOrDefaultAsync(u => u.PasswordResetToken == token &&
+                                                                               u.PasswordResetTokenExpires > DateTime.UtcNow);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            user.PasswordHash = _jwtService.HashPassword(newPassword);
+            user.PasswordResetToken = null;
+            user.PasswordResetTokenExpires = null;
+
+            await _userRepository.UpdateAsync(user);
+            return true;
+        }
+
+        private string GenerateSecureToken()
         {
             return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32))
                 .Replace("+", "-").Replace("/", "_").Replace("=", "");
+        }
+
+        public async Task<bool> DeactivateUserAsync(int userId, int adminId)
+        {
+            var user = await _userRepository.GetAsync(userId);
+            if (user == null) return false;
+
+            user.IsActive = false;
+            user.DeactivatedAt = DateTime.UtcNow;
+
+            await _userRepository.UpdateAsync(user);
+            await _productService.HideUserProductsAsync(userId, adminId);
+
+            return true;
+        }
+        public async Task<bool> ActivateUserAsync(int userId)
+        {
+            var user = await _userRepository.GetAsync(userId);
+            if (user == null) return false;
+
+            user.IsActive = true;
+            user.DeactivatedAt = null;
+
+            await _userRepository.UpdateAsync(user);
+            await _productService.ShowUserProductsAsync(userId);
+
+            return true;
+        }
+
+        public async Task<List<User>> GetActiveUsersAsync()
+        {
+            return await _userRepository.GetAll().Where(u => u.IsActive).ToListAsync();
+        }
+
+        public async Task<List<User>> GetInactiveUsersAsync()
+        {
+            return await _userRepository.GetAll().Where(u => !u.IsActive).ToListAsync();
         }
     }
 }

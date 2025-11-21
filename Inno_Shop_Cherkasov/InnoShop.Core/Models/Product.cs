@@ -8,6 +8,8 @@
         public DateTime CreationDate { get; set; }
         public bool Availability { get; set; }
         public int CreatorId { get; set; }
+        public bool IsHidden { get; set; }
+        public DateTime? HiddenAt { get; set; }
 
         public Product() { }
     }

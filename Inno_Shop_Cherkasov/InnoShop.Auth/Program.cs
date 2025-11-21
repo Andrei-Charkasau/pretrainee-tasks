@@ -33,8 +33,12 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IRepository<Product, int>, EntityRepository<Product, int>>();
+
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRepository<User, int>, EntityRepository<User, int>>();
+
 
 
 builder.Services.AddDbContext<ShopContext>(options =>

@@ -28,6 +28,12 @@ public class AuthController : ControllerBase
             return Unauthorized("Invalid email or password");
         }
 
+        var user = await _userService.GetUserByEmailAsync(loginDto.Email);
+        if (user?.IsActive == false)
+        {
+            return Unauthorized("Account deactivated");
+        }
+
         return Ok(new { Token = token });
     }
     
@@ -46,11 +52,44 @@ public class AuthController : ControllerBase
 
         if (!success)
         {
-            return BadRequest("Invalid or expired token!");
+            return BadRequest("ERROR: Invalid or expired token. !!!");
         }
         else
         {
             return Ok("Your email has been confirmed! You can now log in to your account.");
         }    
+    }
+
+    [HttpPost("forgot-password")]
+    public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
+    {
+        var resetToken = await _userService.GeneratePasswordResetTokenAsync(dto.Email);
+
+        if (resetToken == null)
+        {
+            return Ok(new { message = "Instructions has been sent to E-Mail." });
+        }
+
+        var emailSent = await _emailService.SendPasswordResetEmailAsync(dto.Email, resetToken); // Отправляем email
+
+        if (!emailSent)
+        {
+            return StatusCode(500, new { error = "ERROR: Failed to send email. !!!" });
+        }
+
+        return Ok(new { message = "Password Recovery instructions has been sent to E-Mail." });
+    }
+
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto dto)
+    {
+        var success = await _userService.ResetPasswordAsync(dto.Token, dto.NewPassword);
+
+        if (!success)
+        {
+            return BadRequest(new { error = "ERROR: Invalid or expired token. !!!" });
+        }
+
+        return Ok(new { message = "Password changed succesfully." });
     }
 }

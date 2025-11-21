@@ -42,12 +42,14 @@ namespace InnoShop.Core.Services.Services
 
         public async Task<Product> GetAsync(int productId)
         {
-            return await _productRepository.GetAsync(productId);
+            var product = await _productRepository.GetAsync(productId);
+            if (product == null || product.IsHidden) { return null; } //Если скрыт - возвращаю null... Пока так.
+            return product;
         }
 
         public async Task<List<Product>> GetAllAsync()
         {
-            return await _productRepository.GetAll().ToListAsync();
+            return await _productRepository.GetAll().Where(p => !p.IsHidden).ToListAsync();
         }
 
         public async Task UpdateAsync(int productId, ProductDto productDto)
@@ -65,6 +67,62 @@ namespace InnoShop.Core.Services.Services
             existingProduct.Availability = productDto.Availability;
 
             await _productRepository.UpdateAsync(existingProduct);
+        }
+
+        public async Task<List<Product>> GetUserProductsAsync(int userId)
+        {
+            return await _productRepository.GetAll().Where(p => p.CreatorId == userId &&
+                                                               !p.IsHidden).ToListAsync();
+        }
+
+        public async Task HideUserProductsAsync(int userId, int adminId) //Скрываем ВСЕ продукты пользователя (прячем, Hide)
+        {
+            var userProducts = await _productRepository.GetAll().Where(p => p.CreatorId == userId &&
+                                                                           !p.IsHidden).ToListAsync();
+
+            foreach (var product in userProducts)
+            {
+                product.IsHidden = true;
+                product.HiddenAt = DateTime.UtcNow;
+                await _productRepository.UpdateAsync(product);
+            }
+        }
+
+        public async Task ShowUserProductsAsync(int userId) //Показываем ВСЕ продукты пользователя (типа Unhide)
+        {
+            var userProducts = await _productRepository.GetAll().Where(p => p.CreatorId == userId &&
+                                                                            p.IsHidden).ToListAsync();
+
+            foreach (var product in userProducts)
+            {
+                product.IsHidden = false;
+                product.HiddenAt = null;
+                await _productRepository.UpdateAsync(product);
+            }
+        }
+
+        public async Task<bool> HideProductByAdminAsync(int productId, int adminId) //Скрываем продукт (прячем, Hide) / для админа
+        {
+            var product = await _productRepository.GetAsync(productId);
+            if (product == null) return false;
+
+            product.IsHidden = true;
+            product.HiddenAt = DateTime.UtcNow;
+
+            await _productRepository.UpdateAsync(product);
+            return true;
+        }
+
+        public async Task<bool> ShowProductByAdminAsync(int productId) //"Активируем" продукт (типа Unhide) / для админа
+        {
+            var product = await _productRepository.GetAsync(productId);
+            if (product == null) return false;
+
+            product.IsHidden = false;
+            product.HiddenAt = null;
+
+            await _productRepository.UpdateAsync(product);
+            return true;
         }
     }
 }
