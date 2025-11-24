@@ -18,7 +18,7 @@ public class AuthService
 
         if (response.IsSuccessStatusCode)
         {
-            var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
+            var result = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
             return result.Token;
         }
         return null;

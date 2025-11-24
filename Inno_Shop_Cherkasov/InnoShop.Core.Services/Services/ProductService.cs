@@ -2,17 +2,20 @@
 using InnoShop.Core.Models;
 using InnoShop.Core.Repositories.Repositories;
 using InnoShop.Core.Services.Validators;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace InnoShop.Core.Services.Services
 {
     public class ProductService : IProductService
     {
         private readonly IRepository<Product, int> _productRepository;
-
-        public ProductService(IRepository<Product, int> productRepository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ProductService(IRepository<Product, int> productRepository, IHttpContextAccessor httpContextAccessor)
         {
             _productRepository = productRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task CreateAsync(ProductDto productDto)
@@ -21,6 +24,8 @@ namespace InnoShop.Core.Services.Services
             productDto.Availability.ThrowExceptionIfNull("!!! ERROR: AVAILABILITY for product must be set. !!!");
             productDto.Price.ThrowExceptionIfNull("!!! ERROR:Product's PRICE must be set (NOT NULL). !!!");
 
+            var currentUserId = GetCurrentUserId();
+
             Product product = new Product()
             {
                 Name = productDto.Name.Trim(),
@@ -28,7 +33,7 @@ namespace InnoShop.Core.Services.Services
                 Price = productDto.Price,
                 CreationDate = productDto.CreationDate,
                 Availability = productDto.Availability,
-                CreatorId = productDto.CreatorId
+                CreatorId = currentUserId
             };
             await _productRepository.InsertAsync(product);
         }
@@ -37,6 +42,10 @@ namespace InnoShop.Core.Services.Services
         {
             var existingProduct = await _productRepository.GetAsync(productId);
             existingProduct.ThrowExceptionIfNull("ERROR: Product not found. !!!");
+            if (!await IsProductOwnerAsync(productId))
+            {
+                throw new UnauthorizedAccessException("!!! ERROR: You can only delete your own products. !!!");
+            }
             await _productRepository.DeleteAsync(productId);
         }
 
@@ -59,6 +68,10 @@ namespace InnoShop.Core.Services.Services
             productDto.Price.ThrowExceptionIfNull("!!! ERROR:Product's PRICE must be set (NOT NULL). !!!");
             var existingProduct = await _productRepository.GetAsync(productId);
             existingProduct.ThrowExceptionIfNull("!!! ERROR: Product not found. !!!");
+            if (!await IsProductOwnerAsync(productId))
+            {
+                throw new UnauthorizedAccessException("!!! ERROR: You can only edit your own products. !!!");
+            }
 
             existingProduct.Id = productId;
             existingProduct.Name = productDto.Name.Trim();
@@ -123,6 +136,48 @@ namespace InnoShop.Core.Services.Services
 
             await _productRepository.UpdateAsync(product);
             return true;
+        }
+
+        public async Task<List<Product>> SearchProductsAsync(ProductFilterDto filter)
+        {
+            var query = _productRepository.GetAll().Where(p => !p.IsHidden);
+            query = ApplyFilters(query, filter);
+            query.OrderByDescending(p => p.CreationDate);
+
+            return await query.ToListAsync();
+        }
+
+        private IQueryable<Product> ApplyFilters(IQueryable<Product> query, ProductFilterDto filter)
+        {
+            if (!string.IsNullOrWhiteSpace(filter.SearchTerm)) //+Фильтр "по названию/описанию"
+            {
+                query = query.Where(p => p.Name.Contains(filter.SearchTerm) || p.Description.Contains(filter.SearchTerm));
+            }
+
+            query = query.Where(product =>
+                (!filter.MinPrice.HasValue || product.Price >= filter.MinPrice.Value) &&                   //+Фильтр "по цене (нижний предел)"
+                (!filter.MaxPrice.HasValue || product.Price <= filter.MaxPrice.Value) &&                   //+Фильтр "по цене (верхний предел)"
+                (!filter.Availability.HasValue || product.Availability == filter.Availability.Value) &&    //+Фильтр "по доступности (наличию)"
+                (!filter.CreatedAfter.HasValue || product.CreationDate >= filter.CreatedAfter.Value) &&    //+Фильтр "дате создание (После)"
+                (!filter.CreatedBefore.HasValue || product.CreationDate <= filter.CreatedBefore.Value) &&  //+Фильтр "дате создание (До)"
+                (!filter.CreatorId.HasValue || product.CreatorId == filter.CreatorId.Value));              //+Фильтр "по создателю"
+
+            return query;
+        }
+
+        private int GetCurrentUserId()
+        {
+            var userIdClaim = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return int.Parse(userIdClaim ?? "0");
+        }
+
+        private async Task<bool> IsProductOwnerAsync(int productId)
+        {
+            var product = await _productRepository.GetAsync(productId);
+            var currentUserId = GetCurrentUserId();
+            var isAdmin = _httpContextAccessor.HttpContext?.User.IsInRole("Admin") == true;
+
+            return product?.CreatorId == currentUserId || isAdmin;
         }
     }
 }

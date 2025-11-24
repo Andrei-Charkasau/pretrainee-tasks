@@ -1,6 +1,6 @@
 ﻿namespace InnoShop.Core.Models
 {
-    public class LoginResponse
+    public class LoginResponseDto
     {
         public string Token { get; set; }
     }

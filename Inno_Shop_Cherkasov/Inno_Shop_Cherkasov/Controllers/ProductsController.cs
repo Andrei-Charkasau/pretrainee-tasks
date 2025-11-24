@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using InnoShop.Core.Services.Services;
 using InnoShop.Core.Models;
 using InnoShop.Core.DtoModels;
+using System.Security.Claims;
 
 namespace InnoShop.Controllers
 {
@@ -19,7 +20,6 @@ namespace InnoShop.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<IEnumerable<Product>>> GetAllProductsAsync()
         {
             var products = await _productService.GetAllAsync();
@@ -27,7 +27,6 @@ namespace InnoShop.Controllers
         }
 
         [HttpGet("{productId}")]
-        [Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<Product>> GetProductAsync(int productId)
         {
             var product = await _productService.GetAsync(productId);
@@ -56,6 +55,14 @@ namespace InnoShop.Controllers
         {
             await _productService.DeleteAsync(id);
             return NoContent();
+        }
+
+        [HttpGet("search")]
+        [Authorize(Roles = "User,Admin")]
+        public async Task<IActionResult> SearchProducts([FromQuery] ProductFilterDto filter)
+        {
+            var result = await _productService.SearchProductsAsync(filter);
+            return Ok(result);
         }
     }
 }

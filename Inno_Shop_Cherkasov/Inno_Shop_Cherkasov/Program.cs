@@ -51,6 +51,10 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ShopContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 

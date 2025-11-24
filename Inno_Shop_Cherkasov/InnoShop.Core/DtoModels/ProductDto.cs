@@ -7,6 +7,5 @@
         public decimal Price { get; set; }
         public DateTime CreationDate { get; set; }
         public bool Availability { get; set; }
-        public int CreatorId { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace InnoShop.Core.Services.Services
         public Task ShowUserProductsAsync(int userId);
         public Task<bool> HideProductByAdminAsync(int productId, int adminId);
         public Task<bool> ShowProductByAdminAsync(int productId);
+        public Task<List<Product>> SearchProductsAsync(ProductFilterDto filter);
     }
 }

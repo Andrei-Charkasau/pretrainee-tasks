@@ -30,7 +30,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+
 builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
