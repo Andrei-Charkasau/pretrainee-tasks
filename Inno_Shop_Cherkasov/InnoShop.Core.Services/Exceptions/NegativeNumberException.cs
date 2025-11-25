@@ -3,8 +3,8 @@
 {
     public class NegativeNumberException : Exception
     {
-        public int Number { get; }
-        public NegativeNumberException(int number, string message) : base($"{number}, {message}")
+        public decimal Number { get; }
+        public NegativeNumberException(decimal number, string message) : base($"{number}, {message}")
         {
             this.Number = number;
         }

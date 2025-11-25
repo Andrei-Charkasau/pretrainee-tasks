@@ -4,28 +4,49 @@ namespace InnoShop.Core.Services.Validators
 {
     public static class Guard
     {
-        public static void ThrowExceptionIfNull<T>(this T objectToValidate, string errorMessage)
+        public static T ThrowExceptionIfNull<T>(this T objectToValidate, string errorMessage) // На null
         {
             if (objectToValidate == null)
-            {
                 throw new ArgumentNullException(errorMessage);
-            }
+            return objectToValidate;
         }
 
-        public static void ThrowExceptionIfNullOrWhiteSpace(this string stringToValidate, string errorMessage)
+        public static string ThrowExceptionIfNullOrWhiteSpace(this string stringToValidate, string errorMessage) // На пустую строку
         {
             if (string.IsNullOrWhiteSpace(stringToValidate))
-            {
-                throw new ArgumentNullException(errorMessage);
-            }
+                throw new ArgumentException(errorMessage);
+            return stringToValidate;
         }
 
-        public static void ThrowExceptionIfNegativeYear(int year, string errorMessage)
+        public static decimal ThrowExceptionIfNegative(this decimal number, string errorMessage) // На негативное число
         {
-            if (year <= 0)
+            if (number < 0)
+                throw new NegativeNumberException(number, errorMessage);
+            return number;
+        }
+
+        public static void ThrowBusinessExceptionIf(bool condition, string errorMessage) // Проверки через if 
+        {
+            if (condition)
+                throw new BusinessException(errorMessage);
+        }
+
+        public static T ThrowNotFoundExceptionIfNull<T>(this T entity, string entityName, object key = null)
+        {
+            if (entity == null)
             {
-                throw new NegativeNumberException(year, errorMessage);
+                string message;
+                if (key != null)
+                {
+                    message = $"Entity '{entityName}' with key '{key}' was not found.";
+                }
+                else
+                {
+                    message = $"{entityName} was not found.";
+                }
+                throw new NotFoundException(message);
             }
+            return entity;
         }
     }
 }

@@ -22,7 +22,6 @@ namespace InnoShop.Core.Services.Services
         {
             productDto.Name.ThrowExceptionIfNullOrWhiteSpace("!!! ERROR: Product's NAME must be filled. !!!");
             productDto.Availability.ThrowExceptionIfNull("!!! ERROR: AVAILABILITY for product must be set. !!!");
-            productDto.Price.ThrowExceptionIfNull("!!! ERROR:Product's PRICE must be set (NOT NULL). !!!");
 
             var currentUserId = GetCurrentUserId();
 
@@ -31,7 +30,7 @@ namespace InnoShop.Core.Services.Services
                 Name = productDto.Name.Trim(),
                 Description = productDto.Description.Trim(),
                 Price = productDto.Price,
-                CreationDate = productDto.CreationDate,
+                CreationDate = DateTime.Now,
                 Availability = productDto.Availability,
                 CreatorId = currentUserId
             };
@@ -44,15 +43,18 @@ namespace InnoShop.Core.Services.Services
             existingProduct.ThrowExceptionIfNull("ERROR: Product not found. !!!");
             if (!await IsProductOwnerAsync(productId))
             {
-                throw new UnauthorizedAccessException("!!! ERROR: You can only delete your own products. !!!");
+                throw new UnauthorizedAccessException("!!! ERROR: You can only delete YOUR own products. !!!");
             }
             await _productRepository.DeleteAsync(productId);
         }
 
-        public async Task<Product> GetAsync(int productId)
+        public async Task<Product?> GetAsync(int productId)
         {
             var product = await _productRepository.GetAsync(productId);
-            if (product == null || product.IsHidden) { return null; } //Если скрыт - возвращаю null... Пока так.
+            if (product == null || product.IsHidden) 
+            { 
+                return null; 
+            }
             return product;
         }
 
@@ -65,7 +67,6 @@ namespace InnoShop.Core.Services.Services
         {
             productDto.Name.ThrowExceptionIfNullOrWhiteSpace("!!! ERROR: Product's NAME must be filled. !!!");
             productDto.Availability.ThrowExceptionIfNull("!!! ERROR: AVAILABILITY for product must be set. !!!");
-            productDto.Price.ThrowExceptionIfNull("!!! ERROR:Product's PRICE must be set (NOT NULL). !!!");
             var existingProduct = await _productRepository.GetAsync(productId);
             existingProduct.ThrowExceptionIfNull("!!! ERROR: Product not found. !!!");
             if (!await IsProductOwnerAsync(productId))

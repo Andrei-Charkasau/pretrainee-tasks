@@ -1,7 +1,11 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using InnoShop.Core.Models;
 using InnoShop.Core.Repositories.Contexts;
 using InnoShop.Core.Repositories.Repositories;
 using InnoShop.Core.Services.Services;
+using InnoShop.Core.Validators;
+using InnoShop.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -9,6 +13,11 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddValidatorsFromAssemblyContaining<ProductDtoValidator>();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddProblemDetails();
 
 // JWT конфигурация (ТАКАЯ ЖЕ как в Auth проекте)
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -26,7 +35,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -66,12 +74,22 @@ builder.Services.AddTransient<IRepository<User, int>, EntityRepository<User, int
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IRepository<Product, int>, EntityRepository<Product, int>>();
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseMiddleware<CustomExceptionHandlerMiddleware>();
+app.UseStatusCodePages(async statusCodeContext =>
+{
+    statusCodeContext.HttpContext.Response.ContentType = "application/problem+json";
+    await statusCodeContext.HttpContext.Response.WriteAsJsonAsync(new
+    {
+        Title = "Error",
+        Status = statusCodeContext.HttpContext.Response.StatusCode,
+        Detail = "An error occurred while processing your request"
+    });
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

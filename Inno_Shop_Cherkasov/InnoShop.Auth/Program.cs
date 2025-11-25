@@ -1,7 +1,11 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using InnoShop.Core.Models;
 using InnoShop.Core.Repositories.Contexts;
 using InnoShop.Core.Repositories.Repositories;
 using InnoShop.Core.Services.Services;
+using InnoShop.Core.Validators;
+using InnoShop.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -10,6 +14,11 @@ using System.Text;
 SQLitePCL.Batteries.Init();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddValidatorsFromAssemblyContaining<ProductDtoValidator>();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddProblemDetails();
 
 // JWT конфигурация
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -64,6 +73,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseMiddleware<CustomExceptionHandlerMiddleware>();
+app.UseStatusCodePages(async statusCodeContext =>
+{
+    statusCodeContext.HttpContext.Response.ContentType = "application/problem+json";
+    await statusCodeContext.HttpContext.Response.WriteAsJsonAsync(new
+    {
+        Title = "Error",
+        Status = statusCodeContext.HttpContext.Response.StatusCode,
+        Detail = "An error occurred while processing your request"
+    });
+});
 
 if (app.Environment.IsDevelopment())
 {
