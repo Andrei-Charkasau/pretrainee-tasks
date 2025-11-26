@@ -1,4 +1,4 @@
-﻿namespace Inno_Shop_Cherkasov.Enum
+﻿namespace InnoShop.Enum
 {
     public enum EnumRoles
     {
