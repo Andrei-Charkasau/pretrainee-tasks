@@ -2,8 +2,8 @@
 using InnoShop.Core.Models;
 using InnoShop.Core.Repositories.Repositories;
 using InnoShop.Core.Services.Validators;
+using InnoShop.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 using System.Security.Cryptography;
 
 
@@ -27,11 +27,11 @@ namespace InnoShop.Core.Services.Services
             var existingUser = await _userRepository.GetAll().FirstOrDefaultAsync(u => u.Email == registerDto.Email);
             if (existingUser != null)
             {
-                throw new Exception("ERROR: User with this E-MAIL ALREADY EXISTS. !!!");
+                throw new BusinessException("ERROR: User with this E-MAIL ALREADY EXISTS. !!!");
             }
             registerDto.Name.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's NAME must be filled. !!!");
             registerDto.Email.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
-            registerDto.Role.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's E-MAIL must be filled. !!!");
+            registerDto.Role.ThrowExceptionIfNullOrWhiteSpace("ERROR: User's Role must be filled. !!!");
 
             var confirmationToken = GenerateSecureToken();
 
@@ -90,8 +90,8 @@ namespace InnoShop.Core.Services.Services
 
         public async Task<string> AuthenticateAsync(LoginDto loginDto)
         {
-            var users = await _userRepository.GetAll().ToListAsync();
-            var user = users.FirstOrDefault(u => u.Email == loginDto.Email);
+            var user = await _userRepository.GetAll()
+                .FirstOrDefaultAsync(u => u.Email == loginDto.Email);
 
             if (user == null || !user.IsEmailConfirmed || !_jwtService.VerifyPassword(loginDto.Password, user.PasswordHash))
             {
@@ -105,8 +105,10 @@ namespace InnoShop.Core.Services.Services
         {
             var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.EmailConfirmationToken == token && 
                                                                                x.EmailConfirmationTokenExpires > DateTime.UtcNow);
-
-            if (user == null) return false;
+            if (user == null)
+            {
+                return false;
+            }
 
             user.IsEmailConfirmed = true;
             user.EmailConfirmationToken = null;
@@ -120,7 +122,6 @@ namespace InnoShop.Core.Services.Services
         {
             var user = await _userRepository.GetAll().FirstOrDefaultAsync(u => u.Email == email &&
                                                                                u.IsEmailConfirmed == true);
-
             if (user == null)
             {
                 return null;
@@ -139,7 +140,6 @@ namespace InnoShop.Core.Services.Services
         {
             var user = await _userRepository.GetAll().FirstOrDefaultAsync(u => u.PasswordResetToken == token &&
                                                                                u.PasswordResetTokenExpires > DateTime.UtcNow);
-
             if (user == null)
             {
                 return false;
@@ -162,7 +162,10 @@ namespace InnoShop.Core.Services.Services
         public async Task<bool> DeactivateUserAsync(int userId, int adminId)
         {
             var user = await _userRepository.GetAsync(userId);
-            if (user == null) return false;
+            if (user == null)
+            {
+                return false;
+            }
 
             user.IsActive = false;
             user.DeactivatedAt = DateTime.UtcNow;
@@ -175,7 +178,10 @@ namespace InnoShop.Core.Services.Services
         public async Task<bool> ActivateUserAsync(int userId)
         {
             var user = await _userRepository.GetAsync(userId);
-            if (user == null) return false;
+            if (user == null)
+            {
+                return false;
+            }
 
             user.IsActive = true;
             user.DeactivatedAt = null;

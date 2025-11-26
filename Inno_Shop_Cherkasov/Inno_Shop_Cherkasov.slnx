@@ -9,4 +9,7 @@
     <Project Path="InnoShop.Core/InnoShop.Core.csproj" Id="10c6ae8a-2ab5-4a4d-9a17-d58fe3b4126f" />
     <Project Path="Inno_Shop_Cherkasov/InnoShop.csproj" />
   </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Innoshop.Tests/Innoshop.Tests.csproj" Id="3e03c5e6-09d2-4ff3-8d5a-9f646fe926e7" />
+  </Folder>
 </Solution>

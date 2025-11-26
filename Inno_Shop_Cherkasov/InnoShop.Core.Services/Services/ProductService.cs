@@ -28,7 +28,7 @@ namespace InnoShop.Core.Services.Services
             Product product = new Product()
             {
                 Name = productDto.Name.Trim(),
-                Description = productDto.Description.Trim(),
+                Description = productDto.Description.Trim() ?? string.Empty,
                 Price = productDto.Price,
                 CreationDate = DateTime.Now,
                 Availability = productDto.Availability,

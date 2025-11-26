@@ -36,7 +36,7 @@ namespace InnoShop.Controllers
 
         [HttpPost]
         [Authorize(Roles = "User,Admin")]
-        public async Task<ActionResult> CreateUserAsync(RegisterDto registerDto) //ща подойду
+        public async Task<ActionResult> CreateUserAsync(RegisterDto registerDto)
         {
             await _userService.CreateAsync(registerDto);
             return Ok("User was registered successfully. [+]");

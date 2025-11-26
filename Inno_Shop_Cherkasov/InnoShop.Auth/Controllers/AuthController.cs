@@ -1,7 +1,6 @@
 ﻿using InnoShop.Core.DtoModels;
 using InnoShop.Core.Services.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Specialized;
 
 [ApiController]
 [Route("api/[controller]")]
