@@ -1,6 +1,0 @@
-@InnoShop.Auth_HostAddress = http://localhost:5296
-
-GET {{InnoShop.Auth_HostAddress}}
-Accept: application/json
-
-###

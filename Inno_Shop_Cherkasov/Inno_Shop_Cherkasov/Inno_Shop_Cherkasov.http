@@ -1,6 +1,0 @@
-@Inno_Shop_Cherkasov_HostAddress = http://localhost:5269
-
-GET {{Inno_Shop_Cherkasov_HostAddress}}
-Accept: application/json
-
-###
