@@ -19,7 +19,7 @@ services:
   auth-service:
     build:
       context: .
-      dockerfile: ./InnoShop.Auth/Dockerfile
+      dockerfile: ./Auth/InnoShop.Auth/Dockerfile
     container_name: auth-service-container
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -34,7 +34,7 @@ services:
   inno-shop:
     build:
       context: .
-      dockerfile: ./Inno_Shop_Cherkasov/Dockerfile
+      dockerfile: ./Core/InnoShop.Core/Dockerfile
     container_name: inno-shop-container
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

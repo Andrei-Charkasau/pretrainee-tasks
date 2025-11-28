@@ -3,17 +3,20 @@ using System;
 using InnoShop.Shared.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace InnoShop.Core.Repositories.Migrations
+namespace InnoShop.Shared.Infrastructure.Migrations
 {
     [DbContext(typeof(InnoDbContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20251128180205_NewMigrations")]
+    partial class NewMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace InnoShop.Core.Repositories.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("InnoShop.Core.Models.Product", b =>
+            modelBuilder.Entity("InnoShop.Shared.Domain.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,7 +64,7 @@ namespace InnoShop.Core.Repositories.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("InnoShop.Core.Models.User", b =>
+            modelBuilder.Entity("InnoShop.Shared.Domain.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

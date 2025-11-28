@@ -8,8 +8,10 @@ using InnoShop.Shared.Domain.Models;
 using InnoShop.Shared.Infrastructure.Contexts;
 using InnoShop.Shared.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +37,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddDbContext<InnoDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -47,11 +52,6 @@ builder.Services.AddScoped<IRepository<Product, int>, EntityRepository<Product, 
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRepository<User, int>, EntityRepository<User, int>>();
-
-
-
-builder.Services.AddDbContext<InnoDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Настройка CORS для доступа из основного проекта
 builder.Services.AddCors(options =>

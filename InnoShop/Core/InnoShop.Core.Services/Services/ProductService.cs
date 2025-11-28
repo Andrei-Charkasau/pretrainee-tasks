@@ -30,7 +30,7 @@ namespace InnoShop.Core.Services.Services
                 Name = productDto.Name.Trim(),
                 Description = productDto.Description.Trim() ?? string.Empty,
                 Price = productDto.Price,
-                CreationDate = DateTime.Now,
+                CreationDate = DateTime.UtcNow,
                 Availability = productDto.Availability,
                 CreatorId = currentUserId
             };

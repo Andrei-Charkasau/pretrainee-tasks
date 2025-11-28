@@ -97,6 +97,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<InnoDbContext>();
+        while (!await context.Database.CanConnectAsync()) { }
         context.Database.Migrate();
     }
     catch (Exception ex)
