@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/Auth/">
+    <Project Path="Auth/InnoShop.Auth.Services/InnoShop.Auth.Services.csproj" Id="deb907bb-ca4e-413f-a954-c6ebb9b3e2a3" />
+    <Project Path="Auth/InnoShop.Auth/InnoShop.Auth.csproj" Id="39cf81fc-0d4f-4203-895a-18f98913e38e" />
+  </Folder>
+  <Folder Name="/Core/">
+    <Project Path="Core/InnoShop.Core.Services/InnoShop.Core.Services.csproj" Id="7b6f7d8d-ed97-40e2-8c19-803c4855eb6e" />
+    <Project Path="Core/InnoShop.Core/InnoShop.Core.csproj" Id="60a1f93e-119c-4ae8-af8e-04cf8b0ccd65" />
+  </Folder>
+  <Folder Name="/Shared/">
+    <Project Path="Shared/InnoShop.Shared.Domain/InnoShop.Shared.Domain.csproj" Id="42e02893-abfe-4c72-882a-0ffa658567af" />
+    <Project Path="Shared/InnoShop.Shared.Infrastructure/InnoShop.Shared.Infrastructure.csproj" Id="9761aa79-7738-4e0c-acf9-3bf163cb21d5" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/InnoShop.Auth.Tests/InnoShop.Auth.Tests.csproj" Id="04a123d8-4972-4a99-ad9d-fb264f6dbe4c" />
+    <Project Path="Tests/InnoShop.Core.Tests/InnoShop.Core.Tests.csproj" Id="39b4ad1c-fd16-42ad-a93b-bbe905690c87" />
+    <Project Path="Tests/InnoShop.Shared.Tests/InnoShop.Shared.Tests.csproj" Id="5e6abc13-211a-456a-98e3-c8241174c20c" />
+  </Folder>
+</Solution>
